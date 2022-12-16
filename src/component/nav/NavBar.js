@@ -6,7 +6,7 @@ export default function NavBar() {
             <span className='text-white font-sans font-[300]' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }} >Fomo3D</span>
             <ul className="flex justify-between items-center ml-16 w-full ">
                 <li><a href="/tutorial"><button className='p-2 text-white rounded-md text-sm hover:border hover:bg-transparent hover:border-[#f000f0] bg-fomopink'>Tutorial</button></a></li>
-                <li><a href="/Community"><button className='text-white' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }} >Community</button></a></li>
+                <li><a href="/Community"><button className='text-white' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>Community</button></a></li>
                 <li><p className='text-[#6c757d] text-sm font-thin'>You're not connected to Fomo3D</p></li>
                 <li><a href="/Fomo3D Wiki"><button className='text-white' style={{ textShadow: " 0 0 10px #0078f0, 0 0 10px #0034ca" }}>Fomo3D Wiki</button></a></li>
                 <li><a className='text-white' href="/Stake P3D"><button style={{ textShadow: "0 0 10px #38f000, 0 0 10px #008020" }} >Stake P3D</button></a></li>

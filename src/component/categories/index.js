@@ -1,12 +1,12 @@
 import React from 'react'
-import PurchaseComponet from './payment/PurchaseComponet'
-import RoundComponent from './round-and-team/RoundComponent'
+import SubNavOne from './payment/SubNavOne'
+import SubNavTwo from './round-and-team/SubNavTwo'
 
 export default function Menu() {
     return (
         <div className="flex justify-between font-fomofont px-8 items-start">
-         <PurchaseComponet/>
-         <RoundComponent/>
+         <SubNavOne/>   
+         <SubNavTwo/>
 
         </div>
     )

@@ -2,14 +2,8 @@ import { FaKey, FaPiggyBank, FaRegQuestionCircle } from "react-icons/fa";
 
 const PurchaseComponet = () => {
     return ( 
-         <div className="text-white font-fomofont ">
-          <ul className="flex items-center mt-6 font-fomofont  justify-between w-[45%]">
-            <li className="rounded-t-md bg-[#212529] px-4 py-3 text-lg font-light"><button>Purchase</button></li>
-            <li><button>Vault</button></li>
-            <li><button>Vanity & Referrals</button></li>
-          </ul>
-          <div className="bg-[#212529] font-fomofont  p-5 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-3 font-light font-fomofont">Purchases of .1 BNB or more have a 1% chance to win some of the 0 BNB airdrop pot, instantly!</p>
+          <div className="bg-[#212529] font-fomofont w-[46vw] p-4 rounded-b-2xl rounded-r-2xl">
+            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 BNB or more have a 1% chance to win some of the 0 BNB airdrop pot, instantly!</p>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
@@ -58,7 +52,6 @@ const PurchaseComponet = () => {
               </div>
             </div>
           </div>
-        </div>
      );
 }
  
