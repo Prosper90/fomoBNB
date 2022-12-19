@@ -9,7 +9,7 @@ export default function NavBar() {
     const [modalWallet, setModalWallet] = useState(false);
 
     return (
-        <div className={`flex px-20 sm:px-5  sm:justify-start sm:overflow-hidden  sm:items-start justify-evenly text-xl font-fomofont  items-center bg-[#212529] mx-5 sm:mx-2 py-4 rounded-b-2xl ${!nav ? 'sm:h-[15vw]' : "h-[320px]"}`} style={{  transition: 'height .5s'}}>
+        <div className={`flex px-20 sm:px-5  sm:justify-start sm:overflow-hidden  sm:items-start justify-evenly text-xl font-fomofont  items-center bg-[#212529] mx-5 sm:mx-2 py-4 rounded-b-2xl ${!nav ? 'sm:h-[15vw]' : "sm:h-[46vh]"}`} style={{  transition: 'height .5s'}}>
             <span className='text-white font-sans font-[300]' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }} >Fomo3D</span>
             <ul className="flex sm:flex-col sm:mt-16  sm:items-center justify-between items-center ml-16 sm:ml-[-27px] w-full ">
                 <li><button onClick={() => setModal(true)} className='p-2 text-white sm:mb-4 rounded-md text-sm hover:border hover:bg-transparent hover:border-[#f000f0] bg-fomopink'>Tutorial</button></li>
