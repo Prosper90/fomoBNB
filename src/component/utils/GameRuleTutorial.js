@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function GameRuleTutorial({ setModal }) {
     return (
-        <div className="fixed top-0 left-0 bg-[#000000a6] duration-300  transition ease-in-out delay-300 right-0 h-screen sm:h-auto  z-50  px-4 sm:px-2 sm:p-3 w-full overflow-x-hidden overflow-y-auto md:inset-0 md:h-full justify-center items-center flex">
+        <div className="fixed top-0 left-0 bg-[#000000a6] duration-300  transition ease-in-out delay-300 right-0 h-screen sm:h-auto  z-50  px-4 sm:px-2 sm:p-3 w-full overflow-x-hidden overflow-y-auto md:inset-0 md:h-full justify-center items-center flex"  style={{  transition: 'all .5s'}}>
             <div className="relative w-2/3 font-fomofont h-full mt-24 sm: sm:mt-2 sm:w-full p-6 sm:p-3 ">
                 <div className="relative bg-[#212529] p-6 rounded-lg shadow">
                     <div className="flex mb-5  justify-between">

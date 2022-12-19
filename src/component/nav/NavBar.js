@@ -9,9 +9,9 @@ export default function NavBar() {
     const [modalWallet, setModalWallet] = useState(false);
 
     return (
-        <div className={`flex px-20 sm:px-5 transition-all sm:justify-start sm:overflow-hidden  sm:items-start justify-evenly text-xl font-fomofont  items-center bg-[#212529] mx-5 sm:mx-2 py-4 rounded-b-2xl ${!nav ? 'sm:h-[14vw]' : "h-auto"}`}>
+        <div className={`flex px-20 sm:px-5  sm:justify-start sm:overflow-hidden  sm:items-start justify-evenly text-xl font-fomofont  items-center bg-[#212529] mx-5 sm:mx-2 py-4 rounded-b-2xl ${!nav ? 'sm:h-[15vw]' : "h-[320px]"}`} style={{  transition: 'height .5s'}}>
             <span className='text-white font-sans font-[300]' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }} >Fomo3D</span>
-            <ul className="flex sm:flex-col sm:mt-16 sm:mr-10 sm:items-center justify-between items-center ml-16 sm:ml-0 w-full ">
+            <ul className="flex sm:flex-col sm:mt-16  sm:items-center justify-between items-center ml-16 sm:ml-[-27px] w-full ">
                 <li><button onClick={() => setModal(true)} className='p-2 text-white sm:mb-4 rounded-md text-sm hover:border hover:bg-transparent hover:border-[#f000f0] bg-fomopink'>Tutorial</button></li>
                 <li><a href="/Community"><button className='text-white sm:mb-4' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>Community</button></a></li>
                 <li><p className='text-[#6c757d] text-sm sm:hidden font-thin'>You're not connected to Fomo3D</p></li>

@@ -7,7 +7,7 @@ const PurchaseComponet = () => {
       const [modal, setModal] = useState(false);
 
     return ( 
-          <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 rounded-b-2xl rounded-r-2xl">
+          <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
             <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 BNB or more have a 1% chance to win some of the 0 BNB airdrop pot, instantly!</p>
 
             <div className="flex ">

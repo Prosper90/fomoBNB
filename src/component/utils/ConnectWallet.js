@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function ConnectWallet({ setModalWallet }) {
     return (
-        <div className="fixed top-0 left-0 bg-[#000000a6] duration-300 transition ease-in-out delay-300 right-0 h-screen z-50  px-4 w-full overflow-x-hidden overflow-y-auto md:inset-0 md:h-full justify-center items-center flex">
-            <div className="relative w-2/3 font-fomofont h-full mt-24 sm: sm:mt-64 sm:w-full p-6 sm:p-1">
+        <div className="fixed top-0 left-0 bg-[#000000a6] right-0 h-screen z-50  px-4 sm:px-2 w-full overflow-x-hidden overflow-y-auto md:inset-0 md:h-full justify-center items-center flex"  style={{  transition: 'top 3s'}}>
+            <div className="relative w-2/3 font-fomofont h-full mt-24 sm: sm:mt-64 sm:w-full p-6 sm:p-1"  style={{  transition: 'margin-top .5s'}}>
                 <div className="relative bg-[#212529] p-6 sm:p-3 rounded-3xl shadow">
                     <div className="flex mb-10  justify-between">
                         <h1 className='text-white text-xl' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>Connect your wallet</h1>

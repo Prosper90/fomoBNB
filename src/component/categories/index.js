@@ -4,7 +4,7 @@ import SubNavTwo from './round-and-team/SubNavTwo'
 
 export default function Menu() {
     return (
-        <div className="flex justify-between sm:flex-col font-fomofont px-8 sm:px-3 items-start">
+        <div className="flex justify-between sm:flex-col font-fomofont px-8 sm:px-2 items-start">
          <SubNavOne/>   
          <SubNavTwo/>
 
