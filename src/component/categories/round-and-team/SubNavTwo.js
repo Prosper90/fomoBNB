@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import RoundComponent from './RoundComponent'
 import TeamsComponet from './TeamsComponet'
 
-export default function SubNavTwo() {
+export default function SubNavTwo(props) {
 
     const [items, setItems] = useState('round')
 
@@ -10,9 +10,21 @@ export default function SubNavTwo() {
     const ItemBox = () => {
         switch (items) {
             case 'round':
-                return <RoundComponent />;
+                return <RoundComponent 
+                        signerAddress={props.signerAddress}  
+                        roundInfo={props.roundInfo}
+                        currentPot={props.currentPot}
+                        playerKeys={props.playerKeys}
+                        playerWinnings={props.playerWinnings}
+                  />;
             case 'teams':
-                return <TeamsComponet />
+                return <TeamsComponet 
+                    signerAddress={props.signerAddress}
+                    whales={props.whales}
+                    bears={props.bears}
+                    sneks={props.sneks}
+                    bulls={props.bulls}
+                />
             default:
                 break;
         }
