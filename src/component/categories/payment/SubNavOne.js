@@ -3,14 +3,24 @@ import PurchaseComponet from './PurchaseComponet'
 import VanityAndReferralsComponent from './VanityAndReferralsComponent'
 import VaultComponet from './VaultComponent'
 
-export default function SubNavOne() {
+export default function SubNavOne(props) {
     const [items, setItems] = useState('Purchase')
 
 
     const ItemBox = () => {
         switch (items) {
             case 'Purchase':
-                return <PurchaseComponet />;
+                return <PurchaseComponet
+                   signerAddress={props.signerAddress}
+                   selectedTheme={props.selectedTheme}
+                   setSelectedTheme={props.setSelectedTheme}
+                   notifystate={props.notifystate}
+                   setNotifystate={props.setNotifystate}
+                   notifyMessage={props.notifyMessage}
+                   setNotifyMessage={props.setNotifyMessage}
+                   callAgain={props.callAgain}
+                   setCallAgain={props.setCallAgain}
+                  />;
             case 'Vault':
                 return <VaultComponet />
             case 'Vanity':

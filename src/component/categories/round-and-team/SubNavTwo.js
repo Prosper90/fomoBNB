@@ -16,6 +16,7 @@ export default function SubNavTwo(props) {
                         currentPot={props.currentPot}
                         playerKeys={props.playerKeys}
                         playerWinnings={props.playerWinnings}
+                        time={props.timeleft} 
                   />;
             case 'teams':
                 return <TeamsComponet 

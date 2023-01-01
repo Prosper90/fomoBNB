@@ -2,11 +2,15 @@ import React, {useEffect, useState} from 'react';
 import Menu from "./component/categories";
 import Home from "./component/home/Home";
 import NavBar from "./component/nav/NavBar";
+import Notify from './component/utils/Notify';
 import { ethers } from 'ethers';
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
 function App() {
 
+
+
+            /* global BigInt */
       //variables
       const [provider, setProvider] = useState(undefined);
       const [signer, setSigner] = useState(undefined);
@@ -44,6 +48,13 @@ function App() {
       const [playerKeys, setPlayerKeys] = useState();
       //player winning
       const [playerWinnings, setPlayerWinning] = useState();
+      //selected theme
+      const [selectedTheme, setSelectedTheme] = useState('snek');
+      //notification
+      const [notifystate, setNotifystate] = useState(false);
+      const [notifyMessage, setNotifyMessage] = useState("");
+      //refresh timer
+      const [callAgain, setCallAgain] = useState(false);
 
 
 
@@ -68,11 +79,13 @@ function App() {
 
     //get balance
     const getBalance = async () => {
+      /*
       const Contract = await getBalanceContract();
       const balance = await Contract.balances();
       const fix = (Math.round(balance/10) * 10 ) / 10;
       console.log(fix.toLocaleString())
       setCBalance(fix);
+      */
     }
 
 
@@ -80,7 +93,9 @@ function App() {
     const getTime = async () => {
       const Contract = await getGameContract();
       const timeLeft = await Contract.getTimeLeft();
-      const fix = (Math.round(timeLeft/10) * 10 ) / 10;
+      console.log(ethers.utils.formatEther(timeLeft));
+      //const fix = (Math.round(timeLeft/10) * 10 ) / 10;
+      const fix = parseInt(BigInt(timeLeft));
       console.log(fix);
       SetTimeleft(fix);
     }
@@ -95,6 +110,8 @@ function App() {
       //setting other datas
       //current pot
       setCurrentPot((Math.round(roundInfo[5]/10) * 10 ) / 10);
+      //get total value in contract
+      setCBalance((Math.round(roundInfo[5]/10) * 10 ) / 10);
       //teams balances
       setWhales((Math.round(roundInfo[9]/10) * 10 ) / 10);
       //for bears
@@ -120,6 +137,13 @@ function App() {
     //get playerInfo
 
 
+    const clearNotify = () => {
+      setNotifystate(false);
+      setNotifyMessage("");
+    }
+
+
+
 
     useEffect(() => {
       if(signerAddress) {
@@ -127,12 +151,22 @@ function App() {
         getTime();
         getRoundInfo();
         getPlayerInfo();
+
+       if(notifystate) {
+        setTimeout(() => {
+          clearNotify();
+        }, 5000);
+
+       }
+
+
+
       }
   
-      console.log(playerInfo);
+      //console.log(playerInfo);
 
 
-    }, [signerAddress])
+    }, [signerAddress, notifystate])
 
 
   return (
@@ -154,6 +188,8 @@ function App() {
         setSignerAddress={setSignerAddress}
         cbalance={cbalance}
         timeleft={timeleft}
+        callAgain={callAgain}
+        setCallAgain={setCallAgain}
       />
       <Menu
         signer={signer}
@@ -168,7 +204,22 @@ function App() {
         currentPot={currentPot}
         playerKeys={playerKeys}
         playerWinnings={playerWinnings}
+        selectedTheme={selectedTheme}
+        setSelectedTheme={setSelectedTheme}
+        notifystate={notifystate}
+        setNotifystate={setNotifystate}
+        notifyMessage={notifyMessage}
+        setNotifyMessage={setNotifyMessage}
+        callAgain={callAgain}
+        setCallAgain={setCallAgain}
+        timeleft={timeleft}
        />
+
+       {notifystate && 
+        <Notify 
+          notifyMessage={notifyMessage}
+          setNotifyMessage={setNotifyMessage}/>
+       }
     </div>
   );
 }

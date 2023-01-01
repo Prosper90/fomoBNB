@@ -12,7 +12,15 @@ export default function Home(props) {
          <h1 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>{props.cbalance} BNB</h1>
         }
         {props.signerAddress ?
-         <Clock time={props.timeleft} />
+        <>
+         <h2>in</h2>
+         <Clock 
+            time={props.timeleft} 
+            signerAddress={props.signerAddress}
+            callAgain={props.callAgain}
+            setCallAgain={props.setCallAgain}
+            />
+          </>
          :
          <span className='text-lg sm:text-[1.25rem]'>loading...</span>
         }

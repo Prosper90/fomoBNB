@@ -11,7 +11,10 @@ export default function RoundComponent(props) {
             <div className="bg-[#212529] font-fomofont w-[48vw] sm:w-[94vw]  p-5 rounded-b-2xl rounded-r-2xl">
                 <div>Round {props.roundInfo}</div>
                 <div className="w-full flex items-center">
-                   <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" style={{width: '61%'}}>Contract will drain </h3> <Clock />
+                   <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" style={{width: '61%'}}>
+                    Contract will drain in
+                    </h3> 
+                    <Clock />
                 </div>
                 {!props.signerAddress && 
                   <span className="text-xl font-medium font-fomofont">Not connected...</span>
