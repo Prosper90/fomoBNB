@@ -5,6 +5,8 @@ import TutorialModal from '../utils/TutorialModal';
 import {chainID} from '../chainUtils/constants';
 import { ethers } from 'ethers';
 import {shortenAddress} from '../chainUtils/trauncate';
+//import WalletConnectProvider from "@walletconnect/web3-provider";
+//import Web3Modal from "web3modal";
 
 export default function NavBar(props) {
     const [modal, setModal] = useState(false);
@@ -87,12 +89,51 @@ export default function NavBar(props) {
     }
 
 
-    //onload
+    //onload with metamask
     const onLoad = async () => {
         const provider = await new ethers.providers.Web3Provider(window.ethereum);
         props.setProvider(provider);
         console.log("ran through");
     }
+
+      //onload without metamask
+    /*
+      const onLoadTwo = async () => {
+        const customNetworkOptions = {
+          rpcUrl: 'https://bsc-dataseed.binance.org/',
+          chainId: 56
+          } 
+
+
+        // Example for Polygon/Matic:
+       const providerOptions = {
+        walletconnect: {
+          package: WalletConnectProvider, // required
+          options: {
+            rpc: {
+              56: "https://bsc-dataseed.binance.org/",
+            }, // required
+
+            network: 'binance',
+            chainId: 56,
+
+          }
+        }
+      };
+
+      const web3Modal = new Web3Modal({
+        network: 'binance',
+        cacheProvider: true, // optional
+        providerOptions // required
+      });
+     
+      const instance = await web3Modal.connect();
+      const gettingprovider = await new ethers.providers.Web3Provider(instance);
+      props.setProvider(gettingprovider);
+
+      }
+
+*/
 
         //useEffect
         useEffect(() => {
@@ -104,6 +145,7 @@ export default function NavBar(props) {
         if(!window.ethereum) {
             //setMetamask(true);
             //use wallet connect
+            //onLoadTwo();
         } else {
             onLoad();
         }

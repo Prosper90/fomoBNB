@@ -1,6 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react';
+import { ethers } from "ethers";
+import { gameABI, gameContract} from "../chainUtils/constants";
 
-export default function RegisterName({ setModal }) {
+
+
+export default function RegisterName({ setModal, affcode }) {
+   
+    const[putName, setPutName] = useState();
+
+    const getGameContract = async () => {
+        console.log("bad guy called");
+        const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
+        const signertemp = temporalProvider.getSigner();
+        return new ethers.Contract(gameContract, gameABI, signertemp);
+    }
+
+
+
+
+        //getTimeleft
+        const setName = async () => {
+            if(!putName) {
+                console.log("Empty input");
+                return;
+            }
+
+            if(affcode) {
+                const Contract = await getGameContract();
+                const buy = await Contract.registerNameXname( putName, affcode, true);
+                await buy.wait();
+            } else {
+                const Contract = await getGameContract();
+                const buy = await Contract.registerNameXname( putName, 0, true);
+                await buy.wait();
+            }
+
+          }
+
+
     return (
         <div className="fixed top-0 left-0 bg-[#000000a6] duration-300 transition ease-in-out delay-300 right-0 h-screen z-50  px-4 w-full overflow-x-hidden overflow-y-auto md:inset-0 md:h-full justify-center items-center flex">
             <div className="relative w-2/3 font-fomofont h-full mt-24 sm: sm:mt-2 sm:w-full p-6 sm:p-3">
@@ -12,7 +49,7 @@ export default function RegisterName({ setModal }) {
                         </button>
                     </div>
                     <form>
-                        <input type="text" className='w-full text-[#222] outline-none py-2 px-4 rounded-md' placeholder='Kokichi Mikimoto' />
+                        <input type="text" className='w-full text-[#222] outline-none py-2 px-4 rounded-md' placeholder='Kokichi Mikimoto' onChange={(e) => setPutName(e.target.value)} />
                         <p className="text-base text-white my-1 mt-6 font-light  font-fomofont">Names must follow these rules:</p>
                         <p className="text-base text-white my-1 font-light  font-fomofont">-Must be unique</p>
                         <p className="text-base text-white my-1 font-light  font-fomofont">-32 Characters or less</p>
@@ -21,7 +58,7 @@ export default function RegisterName({ setModal }) {
                         <p className="text-base text-white my-1 font-light  font-fomofont">-No more than one space between characters</p>
                         <p className="text-base text-white my-6 font-light  font-fomofont">If the transaction fails, one of these criteria was not met properly.</p>
                         <p className="text-base text-white mb-6 font-light  font-fomofont">Names are yours permanently(for vanity URLS). But only your most recent name will show up on the leaderboard/game UI. You can own as many names as you'd like.</p>
-                        <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0] ">Purchase for 0.01 BNB</button>
+                        <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0]" onClick={() => setName()}>Purchase for 0.01 BNB</button>
                         <p className="text-base text-white my-1 font-light  font-fomofont">The fee is distributed across community members who made this game possible.</p>
 
                     </form>

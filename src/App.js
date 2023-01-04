@@ -48,13 +48,21 @@ function App() {
       const [playerKeys, setPlayerKeys] = useState();
       //player winning
       const [playerWinnings, setPlayerWinning] = useState();
+      //player affilliate code
+      const [affcode, setAffcode] = useState();
+      //player name
+      const [playerName, setPlayerName] = useState();
+      //player round eth
+      const [playerRoundEth, setPlayerRoundEth]= useState();
       //selected theme
-      const [selectedTheme, setSelectedTheme] = useState('snek');
+      const [selectedTheme, setSelectedTheme] = useState(2);
       //notification
       const [notifystate, setNotifystate] = useState(false);
       const [notifyMessage, setNotifyMessage] = useState("");
       //refresh timer
       const [callAgain, setCallAgain] = useState(false);
+      //user name
+      //const [name, setName] = useState();
 
 
 
@@ -128,8 +136,11 @@ function App() {
       const playerInfo = await Contract.getPlayerInfoByAddress(signerAddress);
       console.log(playerInfo);
       setPlayerInfo(playerInfo);
+      setPlayerName((Math.round(playerInfo[1]/10) * 10 ) / 10);
+      setAffcode((Math.round(playerInfo[5]/10) * 10 ) / 10);
       setPlayerKeys((Math.round(playerInfo[2]/10) * 10 ) / 10);
       setPlayerWinning((Math.round(playerInfo[3]/10) * 10 ) / 10);
+      setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10);
     }
 
 
@@ -190,6 +201,7 @@ function App() {
         timeleft={timeleft}
         callAgain={callAgain}
         setCallAgain={setCallAgain}
+        roundInfo={roundInfo}
       />
       <Menu
         signer={signer}
@@ -213,6 +225,13 @@ function App() {
         callAgain={callAgain}
         setCallAgain={setCallAgain}
         timeleft={timeleft}
+        SetTimeleft={SetTimeleft}
+        affcode={affcode}
+        setAffcode={setAffcode}
+        playerName={playerName}
+        setPlayerName={setPlayerName}
+        playerRoundEth={playerRoundEth}
+        setPlayerRoundEth={setPlayerRoundEth}
        />
 
        {notifystate && 

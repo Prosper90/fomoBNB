@@ -15,6 +15,14 @@ export default function Menu(props) {
             setNotifyMessage={props.setNotifyMessage}
             callAgain={props.callAgain}
             setCallAgain={props.setCallAgain}
+            time={props.timeleft} 
+            SetTimeleft={props.SetTimeleft}
+            affcode={props.affcode}
+            setAffcode={props.setAffcode}
+            playerName={props.playerName}
+            setPlayerName={props.setPlayerName}
+            playerWinnings={props.playerWinnings}
+            playerRoundEth={props.playerRoundEth}
          />   
          <SubNavTwo
            signerAddress={props.signerAddress}

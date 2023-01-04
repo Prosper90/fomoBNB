@@ -20,11 +20,26 @@ export default function SubNavOne(props) {
                    setNotifyMessage={props.setNotifyMessage}
                    callAgain={props.callAgain}
                    setCallAgain={props.setCallAgain}
+                   time={props.timeleft} 
+                   SetTimeleft={props.SetTimeleft}
+                   affcode={props.affcode}
+                   setAffcode={props.setAffcode}
+                   playerName={props.playerName}
+                   setPlayerName={props.setPlayerName}
                   />;
             case 'Vault':
-                return <VaultComponet />
+                return <VaultComponet
+                        signerAddress={props.signerAddress}
+                        playerWinnings={props.playerWinnings}
+                        playerRoundEth={props.playerRoundEth}
+                        />
             case 'Vanity':
-                return <VanityAndReferralsComponent />
+                return <VanityAndReferralsComponent
+                        affcode={props.affcode}
+                        signerAddress={props.signerAddress}
+                        playerName={props.playerName}
+                        setPlayerName={props.setPlayerName}
+                    />
             default:
                 break;
         }

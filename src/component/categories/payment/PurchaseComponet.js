@@ -6,6 +6,7 @@ import {chainID, gameABI, gameContract} from "../../chainUtils/constants";
 
 
 const PurchaseComponet = (props) => {
+              /* global BigInt */
       const [modal, setModal] = useState(false);
       const [inputValue, setInputValue] = useState(1);
       const [bnbPrice, setBNBPrice] = useState(0);
@@ -29,30 +30,55 @@ const PurchaseComponet = (props) => {
             added = inputValue + value;
           }
           setInputValue(added);
-          const converted = (value/1) * bnbPrice;
+          const converted = (added/1) * bnbPrice;
           setBnbBought(converted);
       }
       
 
 
+     //getTimeleft
+     const getTime = async () => {
+      const Contract = await getGameContract();
+      const timeLeft = await Contract.getTimeLeft();
+      //console.log(ethers.utils.formatEther(timeLeft));
+      //const fix = (Math.round(timeLeft/10) * 10 ) / 10;
+      const fix = parseInt(BigInt(timeLeft));
+      if(fix == 0) {
+        //start  another round
+      } else {
+        props.setCallAgain(!props.callAgain);
+      }
+      props.SetTimeleft(fix);
+     }
+
+
 
       const buyKey = async () => {
         //check for checks
-      
-
-        /*
+        
         const contractInstance =  await getGameContract();
         const fees = ethers.utils.parseEther(inputValue);
-        const buy = await contractInstance.buyXid( props.signerAddress, props.selectedTheme, 
-          { value: fees, 
-            gasLimit: 1000000, 
-            nonce: 105 || undefined
-          });
-        await buy.wait();
-        */
+        if(props.affcode) {
+          const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, 
+            { value: fees, 
+              gasLimit: 1000000, 
+              nonce: 105 || undefined
+            });
+          await buy.wait();
+        } else {
+          const buy = await contractInstance.buyXid(0, props.selectedTheme, 
+            { value: fees, 
+              gasLimit: 1000000, 
+              nonce: 105 || undefined
+            });
+          await buy.wait();
+        }
+
+        
         props.setNotifystate(true);
         props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
-        props.setCallAgain(!props.callAgain);
+        getTime();
+
       }
 
 
@@ -74,6 +100,7 @@ const PurchaseComponet = (props) => {
 
 
       const changeTeam = (value) => {
+        console.log(value)
         props.setSelectedTheme(value);
       }
 
@@ -108,7 +135,7 @@ const PurchaseComponet = (props) => {
                       Send BNB 
                   </button>
                 :
-                <button  className="flex opacity-50 items-center border  border-[#f000f0] w-full justify-center rounded-xl mr-6  bg-[#FF00FF] p-1.5" onClick={buyKey}>
+                <button  className="flex opacity-50 items-center border  border-[#F000F0] w-full justify-center rounded-xl mr-6  bg-[#F000F0] p-1.5" onClick={buyKey}>
                   <img src="/images/bnbiconhq.png" className="h-10 mr-1" alt="logo btn" />
                    Send BNBT
                 </button>
@@ -121,26 +148,26 @@ const PurchaseComponet = (props) => {
             </div>
 
             <div className="flex items-start justify-between">
-              <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam('snek')}>
-                <img src={props.selectedTheme == "snek" ? "/images/snakeglow.png" : "/images/snaket.png" } alt="snake" className="h-32"/>
+              <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam(2)}>
+                <img src={props.selectedTheme == 2 ? "/images/snakeglow.png" : "/images/snaket.png" } alt="snake" className="h-32"/>
                   <h3 className="text-2xl font-fomofont font-medium my-2">Snek</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Trickle down Divinomics</p>
                   <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Most dividends</span>
               </div>
-              <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam('whale')}>
-                <img src={props.selectedTheme == "whale" ? "/images/whaleglow.png" : "/images/whalet.png" } alt="whale" className="h-32"/>
+              <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam(0)}>
+                <img src={props.selectedTheme == 0 ? "/images/whaleglow.png" : "/images/whalet.png" } alt="whale" className="h-32"/>
                   <h3 className="text-2xl font-fomofont font-medium my-2">Whale</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Feed on the greed of others.</p>
                   <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Most bnb to <br /> pot</span>
               </div>
-              <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam('cow')}>
-                <img src={props.selectedTheme == "cow" ? "/images/cowglow.png" : "/images/cowt.png" } alt="bull" className="h-32"/>
+              <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam(3)}>
+                <img src={props.selectedTheme == 3 ? "/images/cowglow.png" : "/images/cowt.png" } alt="bull" className="h-32"/>
                   <h3 className="text-2xl font-fomofont font-medium my-2">Bull</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Break upwards, never stagnate.</p>
                   <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">+ Balanced distribution</span>
               </div>
-              <div className="flex flex-col px-1 py-5 justify-between  items-center" onClick={() => changeTeam('bear')}>
-                <img src={props.selectedTheme == "bear" ? "/images/bearglow.png" : "/images/beart.png" } alt="bear" className="h-32"/>
+              <div className="flex flex-col px-1 py-5 justify-between  items-center" onClick={() => changeTeam(1)}>
+                <img src={props.selectedTheme == 1 ? "/images/bearglow.png" : "/images/beart.png" } alt="bear" className="h-32"/>
                   <h3 className="text-2xl font-fomofont font-medium my-2">Bear</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Stand alone, fight alone.</p>
                   <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Maximize bnb to current round</span>

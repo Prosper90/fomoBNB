@@ -6,7 +6,7 @@ import balance from "./balance.json";
 //fomo3dlong game 0x51A5271Ec514c3065d9de2D8E95051989f7D53AB
 //fomo soon game 0x4e8ecF79AdE5e2C49B9e30D795517A81e0Bf00B8
 //fomo short testnet 0xfa24a84f5d224E500b7625357D862FB7115eE426
-export const gameContract = "0x2A76c92C837eFB0522B48D79c6042d7B25361017";
+export const gameContract = "0x4918Ae3672A2d0d182Ff1B991236A39E0d1973d5";
 
 
 
