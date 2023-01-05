@@ -31,7 +31,7 @@ export default function Clock(props) {
         //clear timer
         //show message
         props.setCallAgain(!props.callAgain);
-        clearInterval(interval.current);
+        //clearInterval(interval.current);
       } else {
         //update timer
         setTimerMinutes(minutes);
