@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 export default function Clock(props) {
 
 
+  const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
   const [timerSeconds, setTimerSeconds] = useState();
 
@@ -11,7 +12,7 @@ export default function Clock(props) {
 
     
   const startTimer = (date) => {
-
+    console.log(date);
     const countDownDate = new Date(date).getTime();
     console.log(countDownDate);
 
@@ -22,7 +23,7 @@ export default function Clock(props) {
       const distance = countDownDate - now;
 
 
-
+      const hours = Math.floor(distance % (1000 * 60 * 60 * 24)/(1000 * 60 * 60));
       const minutes = Math.floor(distance % (60*60*1000)/(1000*60));
       const seconds = Math.floor(distance % (60*1000)/(1000));
 
@@ -30,10 +31,11 @@ export default function Clock(props) {
       if(distance < 0 ) {
         //clear timer
         //show message
-        props.setCallAgain(!props.callAgain);
-        //clearInterval(interval.current);
+        //props.setCallAgain(!props.callAgain);
+        clearInterval(interval.current);
       } else {
         //update timer
+        setTimerHours(hours);
         setTimerMinutes(minutes);
         setTimerSeconds(seconds);
         //let arrreturn = [days, hours, minutes, seconds];
@@ -54,12 +56,12 @@ export default function Clock(props) {
  
 
    if(props.signerAddress) {
-    startTimer(nintyMinutesLater);
-    console.log(props.time, "gotten");
+    startTimer(props.time);
+      console.log(props.time, "gotten");
   }
 
 
-  }, [props.callAgain])
+  }, [props.time])
 
 
 
@@ -69,6 +71,11 @@ export default function Clock(props) {
 
     <div className=" flex justify-center w-1/2">
     <div className="flex ml-2">
+    <h4 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
+        <span id="hours" />
+        {timerHours}
+    </h4>
+    <div className="text-[2.5rem] sm:text-[1.75rem]  font-[500]">:</div>
     <h4 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
         <span id="minutes" />
         {timerMinutes}

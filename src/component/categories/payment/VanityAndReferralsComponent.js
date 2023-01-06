@@ -45,7 +45,13 @@ export default function VanityAndReferralsComponent(props) {
                 <button onClick={() => setModal(true)} className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0] "><FaCheck className='mr-2' />Register a new name</button>
             </div>
             {
-                modal &&  <RegisterName affcode={props.affcode} setModal={setModal}/>
+                modal &&  <RegisterName 
+                    affcode={props.affcode} 
+                    setModal={setModal}
+                    setWarnType={props.setWarnType}
+                    setWarnMessage={props.setWarnMessage}
+                    setWarnNotify={props.setWarnNotify}
+                    />
             }
            
         </>

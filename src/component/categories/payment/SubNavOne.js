@@ -26,12 +26,22 @@ export default function SubNavOne(props) {
                    setAffcode={props.setAffcode}
                    playerName={props.playerName}
                    setPlayerName={props.setPlayerName}
+
+                   setWarnType={props.setWarnType}
+                   setWarnMessage={props.setWarnMessage}
+                   setWarnNotify={props.setWarnNotify}
+
+                   registered={props.registered}
                   />;
             case 'Vault':
                 return <VaultComponet
                         signerAddress={props.signerAddress}
                         playerWinnings={props.playerWinnings}
                         playerRoundEth={props.playerRoundEth}
+
+                        setWarnType={props.setWarnType}
+                        setWarnMessage={props.setWarnMessage}
+                        setWarnNotify={props.setWarnNotify}
                         />
             case 'Vanity':
                 return <VanityAndReferralsComponent
@@ -39,6 +49,10 @@ export default function SubNavOne(props) {
                         signerAddress={props.signerAddress}
                         playerName={props.playerName}
                         setPlayerName={props.setPlayerName}
+
+                        setWarnType={props.setWarnType}
+                        setWarnMessage={props.setWarnMessage}
+                        setWarnNotify={props.setWarnNotify}
                     />
             default:
                 break;

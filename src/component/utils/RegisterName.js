@@ -4,7 +4,7 @@ import { gameABI, gameContract} from "../chainUtils/constants";
 
 
 
-export default function RegisterName({ setModal, affcode }) {
+export default function RegisterName({ setModal, affcode, setWarnType, setWarnMessage, setWarnNotify}) {
    
     const[putName, setPutName] = useState();
 
@@ -19,22 +19,50 @@ export default function RegisterName({ setModal, affcode }) {
 
 
         //getTimeleft
-        const setName = async () => {
+        const setName = async (e) => {
+            e.preventDefault();
             if(!putName) {
-                console.log("Empty input");
+                setWarnType('FFCC00');
+                setWarnMessage("Name field is empty");
+                setWarnNotify(true);
                 return;
             }
 
+
+
+        
             if(affcode) {
                 const Contract = await getGameContract();
-                const buy = await Contract.registerNameXname( putName, affcode, true);
-                await buy.wait();
+                const register = await Contract.registerNameXname( putName, affcode, false);
+                await register.wait();
             } else {
                 const Contract = await getGameContract();
-                const buy = await Contract.registerNameXname( putName, 0, true);
-                await buy.wait();
+               const _affcode = "0x0000000000000000000000000000000000000000";
+                const register = await Contract.registerNameXname( putName, _affcode, false);
+                await register.wait();
             }
+          
+           
+            /*
+            if(masternode.type.name && masternode.type.value) {
+                _affcode = masternode.type.name;
+                data = gameContract.registerNameXname.getData(name, _affcode, false);
+            } else if(id && masternode.type.value) {
+                _affcode = id;
+                data = gameContract.registerNameXid.getData(name, _affcode, false);
+            } else if(masternode.type.address && masternode.type.value) {
+                _affcode = masternode.type.address;
+                data = gameContract.registerNameXaddr.getData(name, _affcode, false);
+            } else {
+                _affcode = "0x0000000000000000000000000000000000000000";
+                data = gameContract.registerNameXaddr.getData(name, _affcode, false);
+            }
+            */
 
+            setWarnType('4BB543');
+            setWarnMessage("Name Registered");
+            setWarnNotify(true);
+            
           }
 
 
@@ -58,7 +86,7 @@ export default function RegisterName({ setModal, affcode }) {
                         <p className="text-base text-white my-1 font-light  font-fomofont">-No more than one space between characters</p>
                         <p className="text-base text-white my-6 font-light  font-fomofont">If the transaction fails, one of these criteria was not met properly.</p>
                         <p className="text-base text-white mb-6 font-light  font-fomofont">Names are yours permanently(for vanity URLS). But only your most recent name will show up on the leaderboard/game UI. You can own as many names as you'd like.</p>
-                        <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0]" onClick={() => setName()}>Purchase for 0.01 BNB</button>
+                        <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0]" onClick={(e) => setName(e)}>Purchase for 0.01 BNB</button>
                         <p className="text-base text-white my-1 font-light  font-fomofont">The fee is distributed across community members who made this game possible.</p>
 
                     </form>

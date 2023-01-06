@@ -23,6 +23,12 @@ export default function Menu(props) {
             setPlayerName={props.setPlayerName}
             playerWinnings={props.playerWinnings}
             playerRoundEth={props.playerRoundEth}
+
+            setWarnType={props.setWarnType}
+            setWarnMessage={props.setWarnMessage}
+            setWarnNotify={props.setWarnNotify}
+
+            registered={props.registered}
          />   
          <SubNavTwo
            signerAddress={props.signerAddress}

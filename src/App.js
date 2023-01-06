@@ -3,6 +3,7 @@ import Menu from "./component/categories";
 import Home from "./component/home/Home";
 import NavBar from "./component/nav/NavBar";
 import Notify from './component/utils/Notify';
+import WarnNotify from './component/utils/WarnNotify';
 import { ethers } from 'ethers';
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
@@ -61,15 +62,19 @@ function App() {
       const [notifyMessage, setNotifyMessage] = useState("");
       //refresh timer
       const [callAgain, setCallAgain] = useState(false);
-      //user name
-      //const [name, setName] = useState();
+      //warning notification
+      const [warnnotify, setWarnNotify] = useState(false);
+      const [warnMessage, setWarnMessage] = useState('');
+      const [warnType, setWarnType] = useState();
+      //player registered
+      const [registered, setRegistered] = useState(false);
 
 
 
 
    //get contract instances
    //for contract 1
-    const getBalanceContract = async () => {
+    const getPlayerBookContract = async () => {
         console.log("bad guy called");
         const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
         const signertemp = temporalProvider.getSigner();
@@ -86,18 +91,18 @@ function App() {
 
 
     //get balance
-    const getBalance = async () => {
-      /*
+    /*
+    const getRegistration = async () => {
       const Contract = await getBalanceContract();
-      const balance = await Contract.balances();
+      const registered = await Contract.balances();
       const fix = (Math.round(balance/10) * 10 ) / 10;
-      console.log(fix.toLocaleString())
-      setCBalance(fix);
-      */
+      setRegistered();
+      
     }
-
+  */
 
     //getTimeleft
+    /*
     const getTime = async () => {
       const Contract = await getGameContract();
       const timeLeft = await Contract.getTimeLeft();
@@ -107,13 +112,17 @@ function App() {
       console.log(fix);
       SetTimeleft(fix);
     }
+    */
 
     //getRoundInfo
     const getRoundInfo = async () => {
       const Contract = await getGameContract();
       const roundInfo = await Contract.getCurrentRoundInfo();
       const fix = (Math.round(roundInfo[1]/10) * 10 ) / 10;
-      console.log(fix);
+      let timeLeft = (parseInt(roundInfo[3]));
+      console.log(parseInt(roundInfo[3]));
+      console.log(timeLeft);
+      SetTimeleft(timeLeft);     
       setRoundInfo(fix);
       //setting other datas
       //current pot
@@ -137,6 +146,12 @@ function App() {
       console.log(playerInfo);
       setPlayerInfo(playerInfo);
       setPlayerName((Math.round(playerInfo[1]/10) * 10 ) / 10);
+      //set if registered
+      if((Math.round(playerInfo[0]/10) * 10 ) / 10  == 0) {
+        setRegistered(false);
+      } else {
+        setRegistered(true);
+      }
       setAffcode((Math.round(playerInfo[5]/10) * 10 ) / 10);
       setPlayerKeys((Math.round(playerInfo[2]/10) * 10 ) / 10);
       setPlayerWinning((Math.round(playerInfo[3]/10) * 10 ) / 10);
@@ -158,8 +173,8 @@ function App() {
 
     useEffect(() => {
       if(signerAddress) {
-        getBalance();
-        getTime();
+        //getBalance();
+        //getTime();
         getRoundInfo();
         getPlayerInfo();
 
@@ -167,7 +182,12 @@ function App() {
         setTimeout(() => {
           clearNotify();
         }, 5000);
+       }
 
+       if(warnnotify) {
+        setTimeout(() => {
+          setWarnNotify();
+        }, 5000);
        }
 
 
@@ -177,11 +197,11 @@ function App() {
       //console.log(playerInfo);
 
 
-    }, [signerAddress, notifystate])
+    }, [signerAddress, notifystate, warnnotify])
 
 
   return (
-    <div className="h-auto pb-24 bg-cover bg-no-repeat" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')" }}>
+    <div className="h-auto pb-24 bg-cover bg-no-repeat" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
       <NavBar
         signer={signer}
         setSigner={setSigner}
@@ -203,6 +223,14 @@ function App() {
         setCallAgain={setCallAgain}
         roundInfo={roundInfo}
       />
+      {warnnotify &&
+        <WarnNotify
+         warnMessage={warnMessage}
+         setWarnMessage={setWarnMessage}
+         warnType={warnType}
+         setWarnType={setWarnType}
+        />
+      }
       <Menu
         signer={signer}
         setSigner={setSigner}
@@ -232,6 +260,12 @@ function App() {
         setPlayerName={setPlayerName}
         playerRoundEth={playerRoundEth}
         setPlayerRoundEth={setPlayerRoundEth}
+
+        setWarnType={setWarnType}
+        setWarnMessage={setWarnMessage}
+        setWarnNotify={setWarnNotify}
+
+        registered={registered}
        />
 
        {notifystate && 

@@ -54,11 +54,20 @@ const PurchaseComponet = (props) => {
 
 
       const buyKey = async () => {
-        //check for checks
-        
+        //check that user is registered
+        if(!props.registered) {
+          props.setWarnType('FFCC00');
+          props.setWarnMessage("Register before purchasing keys");
+          props.setWarnNotify(true);
+          return;
+        }
+
+        console.log(inputValue);
+        console.log(props.affcode);
         const contractInstance =  await getGameContract();
-        const fees = ethers.utils.parseEther(inputValue);
+        const fees = ethers.utils.parseEther(String(inputValue));
         if(props.affcode) {
+          console.log("Run this");
           const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, 
             { value: fees, 
               gasLimit: 1000000, 
@@ -66,18 +75,20 @@ const PurchaseComponet = (props) => {
             });
           await buy.wait();
         } else {
-          const buy = await contractInstance.buyXid(0, props.selectedTheme, 
+          const affcode = 0;
+          const buy = await contractInstance.buyXid(affcode, props.selectedTheme, 
             { value: fees, 
               gasLimit: 1000000, 
               nonce: 105 || undefined
             });
           await buy.wait();
+          
         }
 
         
         props.setNotifystate(true);
         props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
-        getTime();
+        //getTime();
 
       }
 
