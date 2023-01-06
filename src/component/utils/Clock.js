@@ -12,15 +12,16 @@ export default function Clock(props) {
 
     
   const startTimer = (date) => {
-    console.log(date);
-    const countDownDate = new Date(date).getTime();
-    console.log(countDownDate);
+    console.log(date * 1000);
+    //const countDownDate = new Date(date).getTime();
+    //console.log(countDownDate);
 
     interval = setInterval(() => {
       const now = new Date().getTime();
 
 
-      const distance = countDownDate - now;
+      const distance = date * 1000 - now;
+      //console.log(distance);
 
 
       const hours = Math.floor(distance % (1000 * 60 * 60 * 24)/(1000 * 60 * 60));
@@ -56,8 +57,11 @@ export default function Clock(props) {
  
 
    if(props.signerAddress) {
-    startTimer(props.time);
+    if(props.time !== undefined) {
+      startTimer(props.time);
       console.log(props.time, "gotten");
+    }
+
   }
 
 
