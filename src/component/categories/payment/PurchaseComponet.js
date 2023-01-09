@@ -55,49 +55,85 @@ const PurchaseComponet = (props) => {
 
       const buyKey = async () => {
         //check that user is registered
-        if(!props.registered) {
+        
+        if(!props.signerAddress) {
           props.setWarnType('FFCC00');
-          props.setWarnMessage("Register before purchasing keys");
+          props.setWarnMessage("Connect wallet");
           props.setWarnNotify(true);
           return;
         }
+        
 
-        console.log(inputValue);
-        console.log(props.affcode);
+        props.setLoading(true);
+
+ 
         const contractInstance =  await getGameContract();
         const fees = ethers.utils.parseEther(String(inputValue));
+
+        const getRandom = await contractInstance.getRandomNumber();
+        await getRandom.wait();
+
         if(props.affcode) {
-          console.log("Run this");
-          const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, 
-            { value: fees, 
-              gasLimit: 1000000, 
-              nonce: 105 || undefined
-            });
-          await buy.wait();
+
+          setTimeout( async () => {
+
+            const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, 
+              { value: fees, 
+                gasLimit: 1000000, 
+                nonce: 105 || undefined
+              });
+            await buy.wait();
+
+          }, 75000);
+
+          props.setNotifystate(true);
+          props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
+          //getTime();
+
+          props.setLoading(false);
+
+
         } else {
           const affcode = 0;
-          const buy = await contractInstance.buyXid(affcode, props.selectedTheme, 
-            { value: fees, 
-              gasLimit: 1000000, 
-              nonce: 105 || undefined
-            });
-          await buy.wait();
+
+          setTimeout( async () => {
+
+            const buy = await contractInstance.buyXid(affcode, props.selectedTheme, 
+              { value: fees, 
+                gasLimit: 1000000, 
+                nonce: 105 || undefined
+              });
+            await buy.wait();
+
+          }, 75000);
+
+
+          props.setNotifystate(true);
+          props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
+          //getTime();
+
+          props.setLoading(false);
           
         }
-
         
-        props.setNotifystate(true);
-        props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
-        //getTime();
 
       }
 
 
+
       const getapiatabnb = async() => {
+        /*
         const response = await fetch("https://min-api.cryptocompare.com/data/price?fsym=BNB&tsyms=USD");
         var data = await response.json();
-        setBNBPrice(data.USD);
-        setBnbBought(data.USD)
+        */
+
+        const Contract = await getGameContract();
+        const boughtbnb = await Contract.getBuyPrice();
+        console.log((Math.round(boughtbnb/10) * 10 ) / 10**18);
+        console.log( String(BigInt(boughtbnb)) )
+        const setPrice = ((Math.round(boughtbnb/10) * 10 ) / 10**18).toFixed(4)
+        setBNBPrice(setPrice);
+        setBnbBought(setPrice);
         }
 
       
@@ -117,8 +153,10 @@ const PurchaseComponet = (props) => {
 
 
         useEffect(() => {
-          getapiatabnb();
-        }, [])
+          if(props.signerAddress) {
+            getapiatabnb();
+          }
+        }, [props.signerAddress])
 
       
 
@@ -129,7 +167,7 @@ const PurchaseComponet = (props) => {
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
               <input className="w-full text-center text-black outline-none" value={inputValue} onChange={(e) => setValue(e)} type="number" />
-              <input className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4" type="text" value={bnbBought} disabled placeholder="@0 BNB" />
+              <div className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4 text-center pt-2" disabled >@ {bnbBought}BNB</div>
             </div>
             
             <div className="flex items-center text-sm font-fomofont font-normal my-3 sm:my-5">

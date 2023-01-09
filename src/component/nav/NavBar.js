@@ -85,6 +85,7 @@ export default function NavBar(props) {
         props.setSignerAddress(address)
         //set chain
         props.setChain(await signer.getChainId());
+        setModalWallet(false);
         return;
     }
 
@@ -130,6 +131,7 @@ export default function NavBar(props) {
       const gettingprovider = await new ethers.providers.Web3Provider(instance);
       props.setProvider(gettingprovider);
       connect(gettingprovider);
+      setModalWallet(false);
       }
 
 

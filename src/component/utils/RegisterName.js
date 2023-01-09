@@ -29,16 +29,28 @@ export default function RegisterName({ setModal, affcode, setWarnType, setWarnMe
             }
 
 
-
-        
             if(affcode) {
                 const Contract = await getGameContract();
-                const register = await Contract.registerNameXname( putName, affcode, false);
+                console.log(putName);
+                console.log("here one");
+                const fees = ethers.utils.parseEther(String(0.01));
+                const register = await Contract.registerNameXID(putName, affcode, false, 
+                    { value: fees, 
+                        gasLimit: 1000000, 
+                        nonce: 105 || undefined
+                     });
                 await register.wait();
             } else {
                 const Contract = await getGameContract();
-               const _affcode = "0x0000000000000000000000000000000000000000";
-                const register = await Contract.registerNameXname( putName, _affcode, false);
+                console.log("called inside");
+                console.log(putName);
+                const _affcode = "0x0000000000000000000000000000000000000000";
+                const fees = ethers.utils.parseEther(String(0.01));
+                const register = await Contract.registerNameXID(putName, 0, false, 
+                    { value: fees, 
+                        gasLimit: 1000000, 
+                        nonce: 105 || undefined
+                    });
                 await register.wait();
             }
           

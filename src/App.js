@@ -5,6 +5,7 @@ import NavBar from "./component/nav/NavBar";
 import Notify from './component/utils/Notify';
 import WarnNotify from './component/utils/WarnNotify';
 import { ethers } from 'ethers';
+import BeatLoader from "react-spinners/BeatLoader";
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
       const [warnType, setWarnType] = useState();
       //player registered
       const [registered, setRegistered] = useState(false);
+      //Preloader
+      const [loading, setLoading] = useState(false);
 
 
 
@@ -118,25 +121,33 @@ function App() {
     const getRoundInfo = async () => {
       const Contract = await getGameContract();
       const roundInfo = await Contract.getCurrentRoundInfo();
-      const fix = (Math.round(roundInfo[1]/10) * 10 ) / 10;
+      const fix = parseInt(roundInfo[1]);
+      //const fix = (Math.round(roundInfo[1]/10) * 10 ) / 10**18;
       let timeLeft = (parseInt(roundInfo[3]));
-      console.log(parseInt(roundInfo[3]));
-      console.log(timeLeft);
-      SetTimeleft(timeLeft);     
+      //console.log(parseInt(roundInfo[1]));
+      //console.log(fix,"fix")
+      //console.log(timeLeft);
+      /*
+      setTimeout(() => {
+        console.log("All wrapped up setTimeOut");
+        SetTimeleft(timeLeft);   
+      }, 3000);
+      */
+      SetTimeleft(timeLeft);   
       setRoundInfo(fix);
       //setting other datas
       //current pot
-      setCurrentPot((Math.round(roundInfo[5]/10) * 10 ) / 10);
+      setCurrentPot(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(4));
       //get total value in contract
-      setCBalance((Math.round(roundInfo[5]/10) * 10 ) / 10);
+      setCBalance(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(4));
       //teams balances
-      setWhales((Math.round(roundInfo[9]/10) * 10 ) / 10);
+      setWhales(((Math.round(roundInfo[9]/10) * 10 ) / 10**18).toFixed(4));
       //for bears
-      setBears((Math.round(roundInfo[10]/10) * 10 ) / 10);
+      setBears(((Math.round(roundInfo[10]/10) * 10 ) / 10**18).toFixed(4));
       //for sneks
-      setSneks((Math.round(roundInfo[11]/10) * 10 ) / 10);
+      setSneks(((Math.round(roundInfo[11]/10) * 10 ) / 10**18).toFixed(4));
       //for bulls
-      setBulls((Math.round(roundInfo[12]/10) * 10 ) / 10);
+      setBulls(((Math.round(roundInfo[12]/10) * 10 ) / 10**18).toFixed(4));
     }
 
     //getPlayerInfo
@@ -153,9 +164,10 @@ function App() {
         setRegistered(true);
       }
       setAffcode((Math.round(playerInfo[5]/10) * 10 ) / 10);
-      setPlayerKeys((Math.round(playerInfo[2]/10) * 10 ) / 10);
-      setPlayerWinning((Math.round(playerInfo[3]/10) * 10 ) / 10);
+      setPlayerKeys(((Math.round(playerInfo[2]/10) * 10 ) / 10**18).toFixed(4));
+      setPlayerWinning( (parseInt(playerInfo[3])/1e18).toFixed(4) );
       setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10);
+      
     }
 
 
@@ -201,7 +213,13 @@ function App() {
 
 
   return (
-    <div className="h-auto pb-24 bg-cover bg-no-repeat" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
+    <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
+        {loading &&
+          <div className="absolute flex justify-center items-center w-full h-[100%] bg-fomoGrey" >
+              <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
+          </div>
+          } 
+
       <NavBar
         signer={signer}
         setSigner={setSigner}
@@ -231,6 +249,7 @@ function App() {
          setWarnType={setWarnType}
         />
       }
+
       <Menu
         signer={signer}
         setSigner={setSigner}
@@ -266,6 +285,9 @@ function App() {
         setWarnNotify={setWarnNotify}
 
         registered={registered}
+
+        loading={loading}
+        setLoading={setLoading}
        />
 
        {notifystate && 

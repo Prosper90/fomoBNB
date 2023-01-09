@@ -29,6 +29,9 @@ export default function Menu(props) {
             setWarnNotify={props.setWarnNotify}
 
             registered={props.registered}
+
+            loading={props.loading}
+            setLoading={props.setLoading}
          />   
          <SubNavTwo
            signerAddress={props.signerAddress}
@@ -42,7 +45,7 @@ export default function Menu(props) {
            playerWinnings={props.playerWinnings}
            callAgain={props.callAgain}
            setCallAgain={props.setCallAgain}
-           time={props.timeleft} 
+           timeleft={props.timeleft} 
          />
 
         </div>

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { FaKey } from "react-icons/fa";
 import Clock from "../utils/Clock";
 
 
 export default function Home(props) {
+
+  useEffect(() => {
+
+  }, [])
   return (
     <div className='text-white  flex my-1 font-fomofont flex-col items-center '>
        <p className='text-[2rem] sm:text-[1.525rem] font-[500]'>someone else is</p>
@@ -13,14 +17,20 @@ export default function Home(props) {
         }
         {props.signerAddress ?
         <>
-         <h2>in</h2>
-         <Clock 
+        { props.timeleft*1000 - new Date().getTime() <= 0 ?
+        <h2>Round ended, Next buy starts new Round</h2>
+        :
+         <>
+           <h2>in</h2>
+           <Clock 
             time={props.timeleft} 
             signerAddress={props.signerAddress}
             callAgain={props.callAgain}
             setCallAgain={props.setCallAgain}
             />
           </>
+        }
+        </>
          :
          <span className='text-lg sm:text-[1.25rem]'>loading...</span>
         }

@@ -28,12 +28,13 @@ module.exports = {
       color: {
         fomopink: "#f000f0",
         fomogreen: "#32cd32",
-        fomobrown: "#ffc107"
+        fomobrown: "#ffc107",
       },
       backgroundColor: {
         fomopink: "#f000f0",
         fomogreen: "#32cd32",
-        fomobrown: "#ffc107"
+        fomobrown: "#ffc107",
+        fomoGrey:'rgba(0,0,0,0.7)'
       },
       shadow: {
         fomoshadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f",

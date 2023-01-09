@@ -3,12 +3,12 @@ import { ethers } from "ethers";
 import {chainID, gameABI, gameContract} from "../chainUtils/constants";
 
 
-export default function Clock(props) {
+export default function Smallertime(props) {
 
 
-  const [timerHours, setTimerHours] = useState();
-  const [timerMinutes, setTimerMinutes] = useState();
-  const [timerSeconds, setTimerSeconds] = useState();
+  const [timerHourss, setTimerHourss] = useState();
+  const [timerMinutess, setTimerMinutess] = useState();
+  const [timerSecondss, setTimerSecondss] = useState();
 
 
   const getGameContract = async () => {
@@ -51,9 +51,9 @@ export default function Clock(props) {
         
       } else {
         //update timer
-        setTimerHours(hours);
-        setTimerMinutes(minutes);
-        setTimerSeconds(seconds);
+        setTimerHourss(hours);
+        setTimerMinutess(minutes);
+        setTimerSecondss(seconds);
         //let arrreturn = [days, hours, minutes, seconds];
         console.log("arrreturn");
        // return [days, hours, minutes, seconds];
@@ -79,14 +79,10 @@ export default function Clock(props) {
 
 
    if(props.signerAddress) {
-    
     if(props.time !== undefined) {
       startTimer(props.time);
-    }
-    
-      //startTimer(props.time);
       console.log(props.time, "gotten");
-
+    }
 
   }
 
@@ -101,20 +97,20 @@ export default function Clock(props) {
 
     <div className=" flex justify-center w-1/2">
     <div className="flex ml-2">
-    <h4 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
+    <h6 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
         <span id="hours" />
-        {timerHours}
-    </h4>
+        {timerHourss}
+    </h6>
     <div className="text-[2.5rem] sm:text-[1.75rem]  font-[500]">:</div>
-    <h4 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
+    <h6 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
         <span id="minutes" />
-        {timerMinutes}
-    </h4>
+        {timerMinutess}
+    </h6>
     <div className="text-[2.5rem] sm:text-[1.75rem]  font-[500]">:</div>
-    <h4 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
+    <h6 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
         <span id="seconds" />
-        {timerSeconds}
-    </h4>
+        {timerSecondss}
+    </h6>
     </div>
     </div>
   )
@@ -123,8 +119,8 @@ export default function Clock(props) {
 }
 
 
-Clock.defaultProps = {
-  timerHours:10,
-  timerMinutes:10,
-  timerSeconds:10
+Smallertime.defaultProps = {
+  timerHourss:10,
+  timerMinutess:10,
+  timerSecondss:10
 }

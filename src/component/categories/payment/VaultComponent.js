@@ -88,7 +88,7 @@ export default function VaultComponet(props) {
                 <div className="flex justify-end">
                     <span className="font-fomofont font-light mt-1 my-2">0 USD</span>
                 </div>
-                <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0] opacity-50" disabled onClick={Withdraw} ><FaHandHoldingHeart className='mr-2'/>Withdraw</button>
+                <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0] opacity-50" onClick={Withdraw} ><FaHandHoldingHeart className='mr-2'/>Withdraw</button>
             </div>
         </div>
     )

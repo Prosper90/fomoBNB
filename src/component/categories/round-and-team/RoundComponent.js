@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { FaKey } from 'react-icons/fa';
-import Clock from "../../utils/Clock";
+import Clock from '../../utils/Clock';
 
 export default function RoundComponent(props) {
    
@@ -27,12 +27,10 @@ export default function RoundComponent(props) {
                     Contract will drain in
                     </h3> 
                      {props.signerAddress ?
-                        <Clock 
-                            time={props.timeleft} 
-                            signerAddress={props.signerAddress}
-                            callAgain={props.callAgain}
-                            setCallAgain={props.setCallAgain}
-                          />
+                       <Clock 
+                        time={props.time} 
+                        signerAddress={props.signerAddress}
+                        />
                         :
                         <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" >loading....</h3>
                       }
@@ -86,6 +84,7 @@ export default function RoundComponent(props) {
                         <div className="flex flex-col justify-between items-center">
                             <span className="font-light">
                                 Total 
+                                
                                 { props.signerAddress ?
                                    props.playerKeys
                                    :

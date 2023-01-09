@@ -32,6 +32,9 @@ export default function SubNavOne(props) {
                    setWarnNotify={props.setWarnNotify}
 
                    registered={props.registered}
+
+                   loading={props.loading}
+                   setLoading={props.setLoading}
                   />;
             case 'Vault':
                 return <VaultComponet
