@@ -12,7 +12,7 @@ export default function NavBar(props) {
     const [modal, setModal] = useState(false);
     const [nav, setNav] = useState(false)
     const [modalWallet, setModalWallet] = useState(false);
-
+    const [getInstance, setgetInstance] = useState();
 
     //web3 functions
 
@@ -128,6 +128,7 @@ export default function NavBar(props) {
       });
      
       const instance = await web3Modal.connect();
+      setgetInstance(instance);
       const gettingprovider = await new ethers.providers.Web3Provider(instance);
       props.setProvider(gettingprovider);
       connect(gettingprovider);
@@ -151,6 +152,29 @@ export default function NavBar(props) {
         } 
     
         }, [props.signerAddress, props.chain])
+        
+
+
+    //on account changed
+   if(window.ethereum){
+
+    window.ethereum.on('accountsChanged', function (accounts) {
+      // Time to reload your interface with accounts[0]!
+      props.setSignerAddress(accounts[0]);
+    });
+  
+   }
+  
+  
+    if(!window.ethereum){
+      // Subscribe to accounts change
+      getInstance.on("accountsChanged", async (accounts) => {
+          props.setSignerAddress(accounts[0]);
+        });
+  
+    }
+
+
 
     return (
         <div className={`flex relative px-20 sm:px-5  sm:justify-start sm:overflow-hidden  sm:items-start justify-evenly text-xl font-fomofont  items-center bg-[#212529] mx-5 sm:mx-2 py-4 rounded-b-2xl ${!nav ? 'sm:h-[15vw]' : "sm:h-[46vh]"}`} style={{  transition: 'height .5s'}}>

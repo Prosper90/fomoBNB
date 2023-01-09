@@ -52,6 +52,9 @@ const PurchaseComponet = (props) => {
      }
 
 
+     const delay = ms => new Promise(res => setTimeout(res, ms));
+
+
 
       const buyKey = async () => {
         //check that user is registered
@@ -63,19 +66,19 @@ const PurchaseComponet = (props) => {
           return;
         }
         
-
+      
         props.setLoading(true);
 
- 
+    
         const contractInstance =  await getGameContract();
         const fees = ethers.utils.parseEther(String(inputValue));
 
         const getRandom = await contractInstance.getRandomNumber();
         await getRandom.wait();
 
-        if(props.affcode) {
+        await delay(75000);
 
-          setTimeout( async () => {
+        if(props.affcode) {
 
             const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, 
               { value: fees, 
@@ -84,19 +87,10 @@ const PurchaseComponet = (props) => {
               });
             await buy.wait();
 
-          }, 75000);
-
-          props.setNotifystate(true);
-          props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
-          //getTime();
-
-          props.setLoading(false);
-
 
         } else {
           const affcode = 0;
 
-          setTimeout( async () => {
 
             const buy = await contractInstance.buyXid(affcode, props.selectedTheme, 
               { value: fees, 
@@ -105,16 +99,15 @@ const PurchaseComponet = (props) => {
               });
             await buy.wait();
 
-          }, 75000);
-
-
-          props.setNotifystate(true);
-          props.setNotifyMessage(`${props.signerAddress} Boought and just Got hold of the key`);
-          //getTime();
-
-          props.setLoading(false);
           
         }
+        
+
+        props.setNotifystate(true);
+        props.setNotifyMessage(`${props.signerAddress} Bought and just Got hold of the key`);
+        //getTime();
+
+        props.setLoading(false);
         
 
       }

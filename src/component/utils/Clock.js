@@ -55,7 +55,7 @@ export default function Clock(props) {
         setTimerMinutes(minutes);
         setTimerSeconds(seconds);
         //let arrreturn = [days, hours, minutes, seconds];
-        console.log("arrreturn");
+        //console.log("arrreturn");
        // return [days, hours, minutes, seconds];
 
       }
@@ -91,7 +91,7 @@ export default function Clock(props) {
   }
 
 
-  }, [props.time])
+  }, [])
 
 
 
@@ -99,7 +99,7 @@ export default function Clock(props) {
 
   return (
 
-    <div className=" flex justify-center w-1/2">
+    <div className=" flex justify-center w-1/2" >
     <div className="flex ml-2">
     <h4 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>
         <span id="hours" />

@@ -27,6 +27,7 @@ export default function Home(props) {
             signerAddress={props.signerAddress}
             callAgain={props.callAgain}
             setCallAgain={props.setCallAgain}
+            key={props.timeleft}
             />
           </>
         }

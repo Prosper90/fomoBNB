@@ -7,7 +7,7 @@ import balance from "./balance.json";
 //fomo soon game 0x4e8ecF79AdE5e2C49B9e30D795517A81e0Bf00B8
 //fomo short testnet 0xd7987938613B467344155b4bbD9EeF27Ef483138
 //0xf4c644637C7e08285061ef0DF3739b414A8A2F97
-export const gameContract = "0xd4eB96d00556b3bA148CC153A15005a71EAF8A89";
+export const gameContract = "0xe007Ef86EE30d641418189A7a5c3F15aA7a27A9a";
 
 
 

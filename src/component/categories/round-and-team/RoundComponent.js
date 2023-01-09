@@ -30,6 +30,7 @@ export default function RoundComponent(props) {
                        <Clock 
                         time={props.time} 
                         signerAddress={props.signerAddress}
+                        key={props.time}
                         />
                         :
                         <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" >loading....</h3>
@@ -46,6 +47,9 @@ export default function RoundComponent(props) {
                 <div className="bg-[#181c1d] p-4 font-fomofont rounded-md">
                     <div className="flex justify-between ">
                         <h3 className="sm:text-[1.3rem] text-2xl">Active Pot</h3>
+
+                        <div className="flex flex-col gap-[5px]">
+                              
                         <span className="text-xl">
                             {props.signerAddress ?
                              <>
@@ -55,17 +59,21 @@ export default function RoundComponent(props) {
                              "loading..."
                             }
                         </span>
-                    </div>
-                    <div className="flex justify-between my-4">
-                        <h3 className="flex items-center text-3xl sm:text-[1.3rem] font-fomofont">Your Keys</h3>
-                        <div className="flex flex-col justify-between items-center">
-                            <span className="font-light text-base">
+                        <span className="font-light text-base">
                                 { props.signerAddress ?
                                    bnbPrice * props.currentPot
                                    :
                                    "0"
                                  } USD
                             </span>
+
+                        </div>
+
+                    </div>
+                    <div className="flex justify-between my-4">
+                        <h3 className="flex items-center text-3xl sm:text-[1.3rem] font-fomofont">Your Keys</h3>
+                        <div className="flex flex-col justify-between items-center">
+                             
                             <h2 className="flex items-center text-3xl sm:text-[1.3rem] font-fomofont">
                             {props.signerAddress ?
                              <>
@@ -77,21 +85,23 @@ export default function RoundComponent(props) {
                              </>
                             }
                             </h2>
+                            <span className="font-light flex">
+                                <div className="pr-1">Total</div>
+                                <div className="">
+                                  { props.signerAddress ?
+                                    props.playerKeys
+                                     :
+                                     "0"
+                                    } 
+                                   Keys
+                               </div>
+                            </span>
+
                         </div>
                     </div>
                     <div className="flex justify-between">
                         <h3 className="flex items-center text-3xl sm:text-[1.3rem] font-fomofont" >Your Earnings</h3>
                         <div className="flex flex-col justify-between items-center">
-                            <span className="font-light">
-                                Total 
-                                
-                                { props.signerAddress ?
-                                   props.playerKeys
-                                   :
-                                   "0"
-                                  } 
-                                Keys
-                            </span>
                             <h2 className="flex items-center text-3xl sm:text-[1.3rem] font-fomofont">
                             {props.signerAddress ?
                              <>

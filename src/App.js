@@ -166,7 +166,7 @@ function App() {
       setAffcode((Math.round(playerInfo[5]/10) * 10 ) / 10);
       setPlayerKeys(((Math.round(playerInfo[2]/10) * 10 ) / 10**18).toFixed(4));
       setPlayerWinning( (parseInt(playerInfo[3])/1e18).toFixed(4) );
-      setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10);
+      setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10**18);
       
     }
 
@@ -193,7 +193,7 @@ function App() {
        if(notifystate) {
         setTimeout(() => {
           clearNotify();
-        }, 5000);
+        }, 10000);
        }
 
        if(warnnotify) {
@@ -212,10 +212,12 @@ function App() {
     }, [signerAddress, notifystate, warnnotify])
 
 
+
   return (
     <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
         {loading &&
-          <div className="absolute flex justify-center items-center w-full h-[100%] bg-fomoGrey" >
+          <div className="absolute flex flex-col justify-center items-center w-full h-[100%] bg-fomoGrey" >
+            <div className="">Note this will take a bit of time , as this is our security measure against hacks</div>
               <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
           </div>
           } 
