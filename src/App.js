@@ -6,6 +6,7 @@ import Notify from './component/utils/Notify';
 import WarnNotify from './component/utils/WarnNotify';
 import { ethers } from 'ethers';
 import BeatLoader from "react-spinners/BeatLoader";
+import io from "socket.io-client";
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
 function App() {
@@ -73,7 +74,18 @@ function App() {
       const [loading, setLoading] = useState(false);
 
 
+   
+      //socket.io
+      const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
+      /*
+      socket.onopen = () => {
+        console.log("connected websocket main component");
+      };
+      */
+      
+    
 
+      
 
    //get contract instances
    //for contract 1
@@ -190,11 +202,6 @@ function App() {
         getRoundInfo();
         getPlayerInfo();
 
-       if(notifystate) {
-        setTimeout(() => {
-          clearNotify();
-        }, 10000);
-       }
 
        if(warnnotify) {
         setTimeout(() => {
@@ -203,13 +210,30 @@ function App() {
        }
 
 
-
       }
   
       //console.log(playerInfo);
 
 
-    }, [signerAddress, notifystate, warnnotify])
+    }, [signerAddress, warnnotify]);
+
+
+    //useEffect two
+    useEffect(() => {
+
+      if(notifystate) {
+        setTimeout(() => {
+          clearNotify();
+        }, 30000);
+       }
+
+
+      socket.on('response', (data) => {
+        console.log("called websocket")
+        setNotifystate(true);
+        setNotifyMessage(`${data} Bought and just Got hold of the key`);
+      });
+    }, [socket, notifystate])
 
 
 
@@ -217,7 +241,7 @@ function App() {
     <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
         {loading &&
           <div className="absolute flex flex-col justify-center items-center w-full h-[100%] bg-fomoGrey" >
-            <div className="">Note this will take a bit of time , as this is our security measure against hacks</div>
+            <div className="text-[#f000f0] font- text-lg ">Note this will take a bit of time , as this is our security measure against hacks</div>
               <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
           </div>
           } 

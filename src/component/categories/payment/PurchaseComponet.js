@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaKey, FaPiggyBank, FaRegQuestionCircle } from "react-icons/fa";
 import GameRuleTutorial from "../../utils/GameRuleTutorial";
 import { ethers } from "ethers";
+import io from "socket.io-client";
 import {chainID, gameABI, gameContract} from "../../chainUtils/constants";
 
 
@@ -11,6 +12,20 @@ const PurchaseComponet = (props) => {
       const [inputValue, setInputValue] = useState(1);
       const [bnbPrice, setBNBPrice] = useState(0);
       const [bnbBought, setBnbBought] = useState(0);
+
+
+
+      //socket.io
+      const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
+      
+      /*
+      socket.on('response', (data) => {
+        notify.textContent = data;
+        messageBar.style.backgroundColor = '#3F4E4F';
+        messageBar.style.height = '20vh';
+      });
+      */
+
 
 
       const getGameContract = async () => {
@@ -86,7 +101,7 @@ const PurchaseComponet = (props) => {
                 nonce: 105 || undefined
               });
             await buy.wait();
-
+            socket.emit('message', props.signerAddress);
 
         } else {
           const affcode = 0;
@@ -98,9 +113,9 @@ const PurchaseComponet = (props) => {
                 nonce: 105 || undefined
               });
             await buy.wait();
+            socket.emit('message', props.signerAddress);
 
-          
-        }
+         }
         
 
         props.setNotifystate(true);
@@ -109,7 +124,6 @@ const PurchaseComponet = (props) => {
 
         props.setLoading(false);
         
-
       }
 
 
@@ -145,6 +159,37 @@ const PurchaseComponet = (props) => {
       }
 
 
+      //Buy keys with earned points
+      const usevault = async () => {
+        const Contract = await getGameContract();
+
+        const getRandom = await Contract.getRandomNumber();
+        await getRandom.wait();
+
+        await delay(75000);
+
+        if(props.affcode) {
+
+          const usev = await Contract.buyXid(props.affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)));
+          await usev.wait();
+
+      } else {
+        const affcode = 0;
+        const usev = await Contract.reLoadXid(affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)) );
+          await usev.wait();
+
+        
+      }
+
+      props.setNotifystate(true);
+      props.setNotifyMessage(`${props.signerAddress} Bought and just Got hold of the key`);
+      //getTime();
+
+      props.setLoading(false);
+
+      }
+
+
         useEffect(() => {
           if(props.signerAddress) {
             getapiatabnb();
@@ -177,12 +222,17 @@ const PurchaseComponet = (props) => {
                       Send BNB 
                   </button>
                 :
-                <button  className="flex opacity-50 items-center border  border-[#F000F0] w-full justify-center rounded-xl mr-6  bg-[#F000F0] p-1.5" onClick={buyKey}>
+                <button  className="flex items-center border  border-fomopink w-full justify-center rounded-xl mr-6  bg-fomopink p-1.5" onClick={buyKey}>
                   <img src="/images/bnbiconhq.png" className="h-10 mr-1" alt="logo btn" />
                    Send BNBT
                 </button>
                }
-              <button disabled className="flex opacity-50 items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5"><FaPiggyBank className="mr-2" />Use Vault </button>
+
+               {!props.signerAddress ?
+                <button disabled className="flex opacity-50 items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5"><FaPiggyBank className="mr-2" />Use Vault </button>
+                :
+                <button  className="flex  items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5 cursor-pointer" onClick={usevault}><FaPiggyBank className="mr-2" />Use Vault </button>
+               }
             </div>
             <div className="flex justify-between items-center  mt-10 px-4 sm:px-1">
               <h3 className="mb-2 text-3xl sm:text-[1.5rem] font-fomofont">Choose a Team</h3>

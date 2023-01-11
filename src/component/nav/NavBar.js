@@ -156,6 +156,7 @@ export default function NavBar(props) {
 
 
     //on account changed
+  
    if(window.ethereum){
 
     window.ethereum.on('accountsChanged', function (accounts) {
@@ -165,14 +166,15 @@ export default function NavBar(props) {
   
    }
   
-  
-    if(!window.ethereum){
-      // Subscribe to accounts change
-      getInstance.on("accountsChanged", async (accounts) => {
-          props.setSignerAddress(accounts[0]);
-        });
-  
+    if(props.provider) {
+      if(!window.ethereum) {
+        // Subscribe to accounts change
+        getInstance.on("accountsChanged", async (accounts) => {
+            props.setSignerAddress(accounts[0]);
+          });
+      }
     }
+
 
 
 
