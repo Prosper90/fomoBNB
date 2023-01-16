@@ -25,7 +25,7 @@ export default function VanityAndReferralsComponent(props) {
     return (
         <>
             <div className="bg-[#212529] w-[46vw] sm:w-full font-fomofont p-4 rounded-b-2xl rounded-r-2xl">
-                <p className="text-base my-1 font-light text-center font-fomofont">Advise others to invest in this exit scam and we'll reward you 10% of everything they lose. In BNB</p>
+                <p className="text-base my-1 font-light text-center font-fomofont">Advise others to invest in this exit scam and we'll reward you 10% of everything they lose. In ETH</p>
 
                 <div className="flex flex-col justify-center items-center my-3 text-base font-light font-fomofont">
                     <h4 className=' text-xl font-normal font-fomofont'>Wallet Referral</h4>

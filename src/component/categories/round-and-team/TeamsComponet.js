@@ -12,7 +12,7 @@ export default function TeamsComponet(props) {
                      {props.whales}
                      </>
                      :
-                     "0 BNB"
+                     "0 ETH"
                     }
 
                 </b>
@@ -26,7 +26,7 @@ export default function TeamsComponet(props) {
                      {props.bears}
                      </>
                      :
-                     "0 BNB"
+                     "0 ETH"
                     }
                 </b>
             </div>
@@ -39,12 +39,12 @@ export default function TeamsComponet(props) {
                      {props.bulls}
                      </>
                      :
-                     "0 BNB"
+                     "0 ETH"
                     }
                 </b>
             </div>
             <div className="flex flex-col bg-[#181c1d] p-5 items-center justify-center rounded-md">
-                <span className='font-light'>Sneks</span>
+                <span className='font-light'>Snakes</span>
                 <img src="/images/snaket.png" alt="whale" />
                 <b className='font-normal' style={{ textShadow: ' gold 0px 0px 10px, gold 0px 0px 10px' }}>
                   {props.signerAddress ?
@@ -52,7 +52,7 @@ export default function TeamsComponet(props) {
                      {props.sneks}
                      </>
                      :
-                     "0 BNB"
+                     "0 ETH"
                     }
                 </b>
             </div>

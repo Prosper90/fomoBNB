@@ -61,7 +61,7 @@ export default function RoundComponent(props) {
                         </span>
                         <span className="font-light text-base">
                                 { props.signerAddress ?
-                                   bnbPrice * props.currentPot
+                                   (bnbPrice * props.currentPot).toFixed(4)
                                    :
                                    "0"
                                  } USD

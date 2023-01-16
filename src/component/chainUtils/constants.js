@@ -7,7 +7,8 @@ import balance from "./balance.json";
 //fomo soon game 0x4e8ecF79AdE5e2C49B9e30D795517A81e0Bf00B8
 //fomo short testnet 0xd7987938613B467344155b4bbD9EeF27Ef483138
 //0xf4c644637C7e08285061ef0DF3739b414A8A2F97
-export const gameContract = "0xe007Ef86EE30d641418189A7a5c3F15aA7a27A9a";
+//main 0x422e58Fa0c33766ec2659d8534e85089DBDeC15c
+export const gameContract = "0xc4e4AdD9250FAd626b760f6458dAFbc32eCa1404";
 
 
 
@@ -23,6 +24,6 @@ export const balanceABI = balance;
 
 
 
-export const chainID = 97;
+export const chainID = 1;
 
 

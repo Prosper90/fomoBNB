@@ -7,6 +7,8 @@ import WarnNotify from './component/utils/WarnNotify';
 import { ethers } from 'ethers';
 import BeatLoader from "react-spinners/BeatLoader";
 import io from "socket.io-client";
+import { Routes, Route, Link } from "react-router-dom";
+import Wiki from './component/utils/Wiki';
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
 function App() {
@@ -209,13 +211,18 @@ function App() {
         }, 5000);
        }
 
+       if(notifystate) {
+        setTimeout(() => {
+          clearNotify();
+        }, 30000);
+       }
+
 
       }
   
       //console.log(playerInfo);
 
-
-    }, [signerAddress, warnnotify]);
+    }, [signerAddress, warnnotify, notifystate]);
 
 
     //useEffect two
@@ -238,90 +245,105 @@ function App() {
 
 
   return (
+    <>
+    <Routes>
+       <Route path="/" element={
+
     <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
-        {loading &&
-          <div className="absolute flex flex-col justify-center items-center w-full h-[100%] bg-fomoGrey" >
-            <div className="text-[#f000f0] font- text-lg ">Note this will take a bit of time , as this is our security measure against hacks</div>
-              <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
-          </div>
-          } 
+    {loading &&
+      <div className="absolute flex flex-col justify-center items-center w-full h-[100%] bg-fomoGrey" >
+        <div className="text-[#f000f0] font- text-lg ">Note this will take a bit of time , as this is our security measure against hacks,
+        Please do not leave page.</div>
+          <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
+      </div>
+      } 
 
-      <NavBar
-        signer={signer}
-        setSigner={setSigner}
-        signerAddress={signerAddress}
-        setSignerAddress={setSignerAddress}
-        provider={provider}
-        setProvider={setProvider}
-        chain={chain}
-        setChain={setChain}
-       />
-      <Home
-        signer={signer}
-        setSigner={setSigner}
-        signerAddress={signerAddress}
-        setSignerAddress={setSignerAddress}
-        cbalance={cbalance}
-        timeleft={timeleft}
-        callAgain={callAgain}
-        setCallAgain={setCallAgain}
-        roundInfo={roundInfo}
+    <NavBar
+      signer={signer}
+      setSigner={setSigner}
+      signerAddress={signerAddress}
+      setSignerAddress={setSignerAddress}
+      provider={provider}
+      setProvider={setProvider}
+      chain={chain}
+      setChain={setChain}
+    />
+    <Home
+      signer={signer}
+      setSigner={setSigner}
+      signerAddress={signerAddress}
+      setSignerAddress={setSignerAddress}
+      cbalance={cbalance}
+      timeleft={timeleft}
+      callAgain={callAgain}
+      setCallAgain={setCallAgain}
+      roundInfo={roundInfo}
+    />
+    {warnnotify &&
+      <WarnNotify
+      warnMessage={warnMessage}
+      setWarnMessage={setWarnMessage}
+      warnType={warnType}
+      setWarnType={setWarnType}
       />
-      {warnnotify &&
-        <WarnNotify
-         warnMessage={warnMessage}
-         setWarnMessage={setWarnMessage}
-         warnType={warnType}
-         setWarnType={setWarnType}
-        />
-      }
+    }
 
-      <Menu
-        signer={signer}
-        setSigner={setSigner}
-        signerAddress={signerAddress}
-        setSignerAddress={setSignerAddress}
-        roundInfo={roundInfo}
-        whales={whales}
-        bears={bears}
-        sneks={sneks}
-        bulls={bulls}
-        currentPot={currentPot}
-        playerKeys={playerKeys}
-        playerWinnings={playerWinnings}
-        selectedTheme={selectedTheme}
-        setSelectedTheme={setSelectedTheme}
-        notifystate={notifystate}
-        setNotifystate={setNotifystate}
+    <Menu
+      signer={signer}
+      setSigner={setSigner}
+      signerAddress={signerAddress}
+      setSignerAddress={setSignerAddress}
+      roundInfo={roundInfo}
+      whales={whales}
+      bears={bears}
+      sneks={sneks}
+      bulls={bulls}
+      currentPot={currentPot}
+      playerKeys={playerKeys}
+      playerWinnings={playerWinnings}
+      selectedTheme={selectedTheme}
+      setSelectedTheme={setSelectedTheme}
+      notifystate={notifystate}
+      setNotifystate={setNotifystate}
+      notifyMessage={notifyMessage}
+      setNotifyMessage={setNotifyMessage}
+      callAgain={callAgain}
+      setCallAgain={setCallAgain}
+      timeleft={timeleft}
+      SetTimeleft={SetTimeleft}
+      affcode={affcode}
+      setAffcode={setAffcode}
+      playerName={playerName}
+      setPlayerName={setPlayerName}
+      playerRoundEth={playerRoundEth}
+      setPlayerRoundEth={setPlayerRoundEth}
+
+      setWarnType={setWarnType}
+      setWarnMessage={setWarnMessage}
+      setWarnNotify={setWarnNotify}
+
+      registered={registered}
+
+      loading={loading}
+      setLoading={setLoading}
+    />
+
+    {notifystate && 
+      <Notify 
         notifyMessage={notifyMessage}
-        setNotifyMessage={setNotifyMessage}
-        callAgain={callAgain}
-        setCallAgain={setCallAgain}
-        timeleft={timeleft}
-        SetTimeleft={SetTimeleft}
-        affcode={affcode}
-        setAffcode={setAffcode}
-        playerName={playerName}
-        setPlayerName={setPlayerName}
-        playerRoundEth={playerRoundEth}
-        setPlayerRoundEth={setPlayerRoundEth}
+        setNotifyMessage={setNotifyMessage}/>
+    }
+  </div>
 
-        setWarnType={setWarnType}
-        setWarnMessage={setWarnMessage}
-        setWarnNotify={setWarnNotify}
 
-        registered={registered}
+        } />
+    </Routes>
 
-        loading={loading}
-        setLoading={setLoading}
-       />
 
-       {notifystate && 
-        <Notify 
-          notifyMessage={notifyMessage}
-          setNotifyMessage={setNotifyMessage}/>
-       }
-    </div>
+    <Routes>
+      <Route path="/wiki" element={<Wiki  />} />
+    </Routes>
+  </>
   );
 }
 

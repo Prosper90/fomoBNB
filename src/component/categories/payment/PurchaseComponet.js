@@ -91,15 +91,11 @@ const PurchaseComponet = (props) => {
         const getRandom = await contractInstance.getRandomNumber();
         await getRandom.wait();
 
-        await delay(75000);
+        await delay(60000);
 
         if(props.affcode) {
 
-            const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, 
-              { value: fees, 
-                gasLimit: 1000000, 
-                nonce: 105 || undefined
-              });
+            const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, fees);
             await buy.wait();
             socket.emit('message', props.signerAddress);
 
@@ -107,11 +103,7 @@ const PurchaseComponet = (props) => {
           const affcode = 0;
 
 
-            const buy = await contractInstance.buyXid(affcode, props.selectedTheme, 
-              { value: fees, 
-                gasLimit: 1000000, 
-                nonce: 105 || undefined
-              });
+            const buy = await contractInstance.buyXid(affcode, props.selectedTheme, fees);
             await buy.wait();
             socket.emit('message', props.signerAddress);
 
@@ -166,19 +158,18 @@ const PurchaseComponet = (props) => {
         const getRandom = await Contract.getRandomNumber();
         await getRandom.wait();
 
-        await delay(75000);
+        await delay(60000);
 
         if(props.affcode) {
 
           const usev = await Contract.buyXid(props.affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)));
           await usev.wait();
-
+          socket.emit('message', props.signerAddress);
       } else {
         const affcode = 0;
         const usev = await Contract.reLoadXid(affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)) );
           await usev.wait();
-
-        
+          socket.emit('message', props.signerAddress);
       }
 
       props.setNotifystate(true);
@@ -200,7 +191,7 @@ const PurchaseComponet = (props) => {
 
     return ( 
           <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 BNB or more have a 1% chance to win some of the 0 BNB airdrop pot, instantly!</p>
+            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 Eth or more have a 1% chance to win some of the 0 ETH airdrop pot, instantly!</p>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
@@ -219,12 +210,12 @@ const PurchaseComponet = (props) => {
                {!props.signerAddress ?
                   <button disabled className="flex opacity-50 items-center border  border-[#f000f0] w-full justify-center rounded-xl mr-6  bg-[#f000f0] p-1.5">
                       <img src="/images/bnbiconhq.png" className="h-10 mr-1" alt="logo btn" />
-                      Send BNB 
+                      Send ETH 
                   </button>
                 :
                 <button  className="flex items-center border  border-fomopink w-full justify-center rounded-xl mr-6  bg-fomopink p-1.5" onClick={buyKey}>
                   <img src="/images/bnbiconhq.png" className="h-10 mr-1" alt="logo btn" />
-                   Send BNBT
+                   Send ETH
                 </button>
                }
 
@@ -242,7 +233,7 @@ const PurchaseComponet = (props) => {
             <div className="flex items-start justify-between">
               <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam(2)}>
                 <img src={props.selectedTheme == 2 ? "/images/snakeglow.png" : "/images/snaket.png" } alt="snake" className="h-32"/>
-                  <h3 className="text-2xl font-fomofont font-medium my-2">Snek</h3>
+                  <h3 className="text-2xl font-fomofont font-medium my-2">Snake</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Trickle down Divinomics</p>
                   <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Most dividends</span>
               </div>
@@ -250,7 +241,7 @@ const PurchaseComponet = (props) => {
                 <img src={props.selectedTheme == 0 ? "/images/whaleglow.png" : "/images/whalet.png" } alt="whale" className="h-32"/>
                   <h3 className="text-2xl font-fomofont font-medium my-2">Whale</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Feed on the greed of others.</p>
-                  <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Most bnb to <br /> pot</span>
+                  <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Most eth to <br /> pot</span>
               </div>
               <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam(3)}>
                 <img src={props.selectedTheme == 3 ? "/images/cowglow.png" : "/images/cowt.png" } alt="bull" className="h-32"/>
@@ -262,7 +253,7 @@ const PurchaseComponet = (props) => {
                 <img src={props.selectedTheme == 1 ? "/images/bearglow.png" : "/images/beart.png" } alt="bear" className="h-32"/>
                   <h3 className="text-2xl font-fomofont font-medium my-2">Bear</h3>
                   <p className="text-base text-center  font-light font-fomofont ">Stand alone, fight alone.</p>
-                  <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Maximize bnb to current round</span>
+                  <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Maximize eth to current round</span>
               </div>
             </div>
             {

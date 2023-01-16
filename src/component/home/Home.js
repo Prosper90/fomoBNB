@@ -11,9 +11,9 @@ export default function Home(props) {
   return (
     <div className='text-white  flex my-1 font-fomofont flex-col items-center '>
        <p className='text-[2rem] sm:text-[1.525rem] font-[500]'>someone else is</p>
-        <h1 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>EXIT SCAMMING</h1>
+        <h1 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>Might win the POT</h1>
         {props.signerAddress &&
-         <h1 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>{props.cbalance} BNB</h1>
+         <h1 className='text-[2.5rem] sm:text-[1.75rem]  font-[500]'>{props.cbalance} ETH</h1>
         }
         {props.signerAddress ?
         <>
