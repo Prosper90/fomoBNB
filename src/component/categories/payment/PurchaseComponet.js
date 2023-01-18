@@ -3,7 +3,7 @@ import { FaKey, FaPiggyBank, FaRegQuestionCircle } from "react-icons/fa";
 import GameRuleTutorial from "../../utils/GameRuleTutorial";
 import { ethers } from "ethers";
 import io from "socket.io-client";
-import {chainID, gameABI, gameContract} from "../../chainUtils/constants";
+import {chainID, gameABI, gameContract, tokenContract, ercABI} from "../../chainUtils/constants";
 
 
 const PurchaseComponet = (props) => {
@@ -35,6 +35,12 @@ const PurchaseComponet = (props) => {
         return new ethers.Contract(gameContract, gameABI, signertemp);
     }
 
+    const gettokenContract = async () => {
+      const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
+      const signertemp = temporalProvider.getSigner();
+      return new ethers.Contract(tokenContract, ercABI, signertemp);
+  }
+
 
 
       const addToValue = (value) => {
@@ -52,6 +58,7 @@ const PurchaseComponet = (props) => {
 
 
      //getTimeleft
+     /*
      const getTime = async () => {
       const Contract = await getGameContract();
       const timeLeft = await Contract.getTimeLeft();
@@ -65,7 +72,7 @@ const PurchaseComponet = (props) => {
       }
       props.SetTimeleft(fix);
      }
-
+     */
 
      const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -86,7 +93,16 @@ const PurchaseComponet = (props) => {
 
     
         const contractInstance =  await getGameContract();
+        const tokenContractInstance = await gettokenContract();
         const fees = ethers.utils.parseEther(String(inputValue));
+        console.log(fees)
+
+
+        const approve = await tokenContractInstance.approve(gameContract, fees);
+        await approve.wait();
+
+        const payforKey = await contractInstance.transferSOS(fees);
+        await payforKey.wait();
 
         const getRandom = await contractInstance.getRandomNumber();
         await getRandom.wait();
@@ -94,17 +110,24 @@ const PurchaseComponet = (props) => {
         await delay(60000);
 
         if(props.affcode) {
-
-            const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, fees);
+          console.log("second one check");
+            const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, fees, {
+              gasLimit: 1000000,
+              nonce: 105 || undefined,
+            });
             await buy.wait();
             socket.emit('message', props.signerAddress);
 
         } else {
           const affcode = 0;
 
-
-            const buy = await contractInstance.buyXid(affcode, props.selectedTheme, fees);
+          console.log("Third one check");
+            const buy = await contractInstance.buyXid(affcode, props.selectedTheme, fees,{
+              gasLimit: 1000000,
+              nonce: 105 || undefined,
+            });
             await buy.wait();
+            console.lof(buy.tx);
             socket.emit('message', props.signerAddress);
 
          }
@@ -161,13 +184,20 @@ const PurchaseComponet = (props) => {
         await delay(60000);
 
         if(props.affcode) {
-
-          const usev = await Contract.buyXid(props.affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)));
+          console.log("IN here");
+          const usev = await Contract.buyXid(props.affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)), {
+            gasLimit: 100000,
+            nonce: 105 || undefined,
+          });
           await usev.wait();
           socket.emit('message', props.signerAddress);
       } else {
+        console.log("IN here");
         const affcode = 0;
-        const usev = await Contract.reLoadXid(affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)) );
+        const usev = await Contract.reLoadXid(affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)), {
+          gasLimit: 100000,
+          nonce: 105 || undefined,
+        } );
           await usev.wait();
           socket.emit('message', props.signerAddress);
       }
@@ -196,7 +226,7 @@ const PurchaseComponet = (props) => {
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
               <input className="w-full text-center text-black outline-none" value={inputValue} onChange={(e) => setValue(e)} type="number" />
-              <div className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4 text-center pt-2" disabled >@ {bnbBought}BNB</div>
+              <div className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4 text-center pt-2" disabled >@ {bnbBought}ETH</div>
             </div>
             
             <div className="flex items-center text-sm font-fomofont font-normal my-3 sm:my-5">
