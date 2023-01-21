@@ -95,6 +95,7 @@ const PurchaseComponet = (props) => {
         const contractInstance =  await getGameContract();
         const tokenContractInstance = await gettokenContract();
         const fees = ethers.utils.parseEther(String(inputValue));
+        const fixedTeam = ethers.utils.parseEther(String(0));
         console.log(fees)
 
 
@@ -104,14 +105,10 @@ const PurchaseComponet = (props) => {
         const payforKey = await contractInstance.transferSOS(fees);
         await payforKey.wait();
 
-        const getRandom = await contractInstance.getRandomNumber();
-        await getRandom.wait();
-
-        await delay(60000);
-
         if(props.affcode) {
+          console.log(props.affcode);
           console.log("second one check");
-            const buy = await contractInstance.buyXid(props.affcode, props.selectedTheme, fees, {
+            const buy = await contractInstance.buyXid(props.affcode, fixedTeam, fees, {
               gasLimit: 1000000,
               nonce: 105 || undefined,
             });
@@ -122,12 +119,12 @@ const PurchaseComponet = (props) => {
           const affcode = 0;
 
           console.log("Third one check");
-            const buy = await contractInstance.buyXid(affcode, props.selectedTheme, fees,{
+            const buy = await contractInstance.buyXid(affcode, fixedTeam, fees,{
               gasLimit: 1000000,
               nonce: 105 || undefined,
             });
             await buy.wait();
-            console.lof(buy.tx);
+            console.log(buy.tx);
             socket.emit('message', props.signerAddress);
 
          }
@@ -181,7 +178,6 @@ const PurchaseComponet = (props) => {
         const getRandom = await Contract.getRandomNumber();
         await getRandom.wait();
 
-        await delay(60000);
 
         if(props.affcode) {
           console.log("IN here");
@@ -199,7 +195,7 @@ const PurchaseComponet = (props) => {
           nonce: 105 || undefined,
         } );
           await usev.wait();
-          socket.emit('message', props.signerAddress);
+         socket.emit('message', props.signerAddress);
       }
 
       props.setNotifystate(true);
@@ -221,12 +217,12 @@ const PurchaseComponet = (props) => {
 
     return ( 
           <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 Eth or more have a 1% chance to win some of the 0 ETH airdrop pot, instantly!</p>
+            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 SOS or more have a 1% chance to win some of the 0 SOS airdrop pot, instantly!</p>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
               <input className="w-full text-center text-black outline-none" value={inputValue} onChange={(e) => setValue(e)} type="number" />
-              <div className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4 text-center pt-2" disabled >@ {bnbBought}ETH</div>
+              <div className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4 text-center pt-2" disabled >@ {bnbBought}SOS</div>
             </div>
             
             <div className="flex items-center text-sm font-fomofont font-normal my-3 sm:my-5">
@@ -240,12 +236,12 @@ const PurchaseComponet = (props) => {
                {!props.signerAddress ?
                   <button disabled className="flex opacity-50 items-center border  border-[#f000f0] w-full justify-center rounded-xl mr-6  bg-[#f000f0] p-1.5">
                       <img src="/images/bnbiconhq.png" className="h-10 mr-1" alt="logo btn" />
-                      Send ETH 
+                      Send SOS 
                   </button>
                 :
                 <button  className="flex items-center border  border-fomopink w-full justify-center rounded-xl mr-6  bg-fomopink p-1.5" onClick={buyKey}>
                   <img src="/images/bnbiconhq.png" className="h-10 mr-1" alt="logo btn" />
-                   Send ETH
+                   Send SOS
                 </button>
                }
 
@@ -255,11 +251,12 @@ const PurchaseComponet = (props) => {
                 <button  className="flex  items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5 cursor-pointer" onClick={usevault}><FaPiggyBank className="mr-2" />Use Vault </button>
                }
             </div>
+
             <div className="flex justify-between items-center  mt-10 px-4 sm:px-1">
-              <h3 className="mb-2 text-3xl sm:text-[1.5rem] font-fomofont">Choose a Team</h3>
+              <h3 className="mb-2 text-3xl sm:text-[1.5rem] font-fomofont">Understand the Game</h3>
               <FaRegQuestionCircle onClick={() => setModal(true)} className="text-3xl text-[#ff0] cursor-pointer" />
             </div>
-
+             {/* 
             <div className="flex items-start justify-between">
               <div className="flex flex-col px-1 py-5 justify-between border-r-2 border-[#696969] items-center" onClick={() => changeTeam(2)}>
                 <img src={props.selectedTheme == 2 ? "/images/snakeglow.png" : "/images/snaket.png" } alt="snake" className="h-32"/>
@@ -286,6 +283,7 @@ const PurchaseComponet = (props) => {
                   <span className="text-base text-center text-[#32cd32] mt-5 font-light font-fomofont">++ Maximize eth to current round</span>
               </div>
             </div>
+              */}
             {
               modal &&  <GameRuleTutorial setModal={setModal}/>
             }

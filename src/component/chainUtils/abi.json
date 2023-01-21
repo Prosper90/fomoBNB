@@ -225,12 +225,6 @@
 				"internalType": "uint256",
 				"name": "potAmount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "airDropPot",
-				"type": "uint256"
 			}
 		],
 		"name": "onEndTx",
@@ -518,32 +512,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "airDropPot_",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "airDropTracker_",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -741,24 +709,6 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getLinkBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "requestId",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -840,19 +790,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getRandomNumber",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1129,24 +1066,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "uint256",
-				"name": "randomness",
-				"type": "uint256"
-			}
-		],
-		"name": "rawFulfillRandomness",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "_affCode",
 				"type": "address"
@@ -1275,6 +1194,11 @@
 				"internalType": "bool",
 				"name": "_all",
 				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
 			}
 		],
 		"name": "registerNameXID",

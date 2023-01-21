@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ethers } from "ethers";
-import { gameABI, gameContract} from "../chainUtils/constants";
+import { gameABI, gameContract, tokenContract, ercABI} from "../chainUtils/constants";
 
 
 
@@ -15,10 +15,16 @@ export default function RegisterName({ setModal, affcode, setWarnType, setWarnMe
         return new ethers.Contract(gameContract, gameABI, signertemp);
     }
 
+    const gettokenContract = async () => {
+        const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
+        const signertemp = temporalProvider.getSigner();
+        return new ethers.Contract(tokenContract, ercABI, signertemp);
+    }
 
 
 
-        //getTimeleft
+
+        //setName
         const setName = async (e) => {
             e.preventDefault();
             if(!putName) {
@@ -28,26 +34,32 @@ export default function RegisterName({ setModal, affcode, setWarnType, setWarnMe
                 return;
             }
 
+            const tokenContractInstance = await gettokenContract();
+            const Contract = await getGameContract();
+            const fees = ethers.utils.parseEther(String(0.01));
+
+            const approve = await tokenContractInstance.approve(gameContract, fees);
+            await approve.wait();
+    
+            const paytoRegister = await Contract.transferSOS(fees);
+            await paytoRegister.wait();
+
 
             if(affcode) {
-                const Contract = await getGameContract();
                 console.log(putName);
                 console.log("here one");
-                const fees = ethers.utils.parseEther(String(0.01));
-                const register = await Contract.registerNameXID(putName, affcode, false, 
-                    { value: fees, 
+                const register = await Contract.registerNameXID(putName, affcode, false, fees, 
+                    { 
                         gasLimit: 1000000, 
                         nonce: 105 || undefined
                      });
                 await register.wait();
             } else {
-                const Contract = await getGameContract();
                 console.log("called inside");
                 console.log(putName);
                 const _affcode = "0x0000000000000000000000000000000000000000";
-                const fees = ethers.utils.parseEther(String(0.01));
-                const register = await Contract.registerNameXID(putName, 0, false, 
-                    { value: fees, 
+                const register = await Contract.registerNameXID(putName, 0, false, fees, 
+                    {
                         gasLimit: 1000000, 
                         nonce: 105 || undefined
                     });
@@ -98,7 +110,7 @@ export default function RegisterName({ setModal, affcode, setWarnType, setWarnMe
                         <p className="text-base text-white my-1 font-light  font-fomofont">-No more than one space between characters</p>
                         <p className="text-base text-white my-6 font-light  font-fomofont">If the transaction fails, one of these criteria was not met properly.</p>
                         <p className="text-base text-white mb-6 font-light  font-fomofont">Names are yours permanently(for vanity URLS). But only your most recent name will show up on the leaderboard/game UI. You can own as many names as you'd like.</p>
-                        <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0]" onClick={(e) => setName(e)}>Purchase for 0.01 BNB</button>
+                        <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0]" onClick={(e) => setName(e)}>Purchase for 0.01 ETH</button>
                         <p className="text-base text-white my-1 font-light  font-fomofont">The fee is distributed across community members who made this game possible.</p>
 
                     </form>

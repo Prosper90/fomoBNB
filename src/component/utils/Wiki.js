@@ -72,9 +72,9 @@ export default function Wiki() {
                 keys" and additional time is added to the countdown clock.
 
                 When the clock reaches zero, the pot is diwied up with the final buyer who holds the private keys receiving
-                the lion share of the ETH but with substantial portions going both to all other SOS participants and as
-                dividends paid to SOS3D holders. The specific way the ETH is divided between the winner, the SOS
-                participants and the SOS3D holders is entirely dependent on which team the winner was representing.
+                the lion share of SOS but with substantial portions going both to all other player participants and as
+                dividends paid to SOS3D holders. The specific way the SOS is divided between the winner, the SOS
+                participants and the SOS3D holders is based of rules and percentages set in the smart contract.
 
                 To understand the mechanics and incentives of the game, check out Reddit's The Button @ experiment for
 
@@ -85,7 +85,7 @@ export default function Wiki() {
               <p>
 
                 Before releasing the game to play with real Ethereum, we have launched a testnet version using fake
-                ETH. Please note that this version is not using real ETH, but instead uses pretend ETH given to you for free
+                ETH Goerli testnet. Please note that this version is not using real ETH, but instead uses pretend ETH given to you for free
                 by a test faucet.
 
                 Instructions for configuring and playing on the testnet
@@ -95,7 +95,7 @@ export default function Wiki() {
 
                 ne . teamjust-io/ as the URL
                 2. Visit our test ETH faucet @ in your web browser for a free 100 test eth
-                3. Play SOS3D with your test ETH on the play page ¢
+                3. Play SOS3D with your test SOS on the play page ¢
 
                 Now you can get started playing, Read below to better understand the game!
               </p>
@@ -121,11 +121,11 @@ export default function Wiki() {
                 <li>The round officially ends when the countdown clock reaches zero.</li>
               </ol>
               <div className="">
-                At the end of the round, the ETH pot is distributed between several parties with the winner (private
+                At the end of the round, the SOS pot is distributed between several parties with the winner (private
                 keys owner) receiving half, and the rest of the players each receiving a share of the pot proportional
                 to the number of keys they held. In addition, a percentage of the pot is paid to SOS3D holders as
-                dividends. The specific split of the pot (who gets what) is determined by the team selected by the
-                winner when purchasing their last key.
+                dividends. The specific split of the pot (who gets what) is determined by the contract, when the
+                 players purchase their last key.
               </div>
               <div className="">
                 Once the keys are sold and the pot has been fully distributed, a new scam (round) begins anew! Keep
@@ -147,7 +147,7 @@ export default function Wiki() {
               <p>
                © Whale - "Feed on the greed of others". After a round ends, a larger portion of the pot is held for the
                 next round and less given as dividends to players and holders. Whales push for keeping more of
-                the ETH around in the game for future rounds rather than distributing as dividends.
+                the SOS around in the game for future rounds rather than distributing as dividends.
               </p>
               <p>
                 © Bull - "Break upwards, never stagnate”. After a round ends, a larger portion of the pot is distributed

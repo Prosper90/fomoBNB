@@ -7,7 +7,7 @@ import WarnNotify from './component/utils/WarnNotify';
 import { ethers } from 'ethers';
 import BeatLoader from "react-spinners/BeatLoader";
 import io from "socket.io-client";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useMatch } from "react-router-dom";
 import Wiki from './component/utils/Wiki';
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
@@ -79,24 +79,16 @@ function App() {
    
       //socket.io
       const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
-      /*
-      socket.onopen = () => {
-        console.log("connected websocket main component");
-      };
-      */
-      
-    
+
+     
+      //let {id} = useParams();
+      //console.log(id);
+      const id = useMatch('/:id');
+
+
+    //console.log(addr);
 
       
-
-   //get contract instances
-   //for contract 1
-    const getPlayerBookContract = async () => {
-        console.log("bad guy called");
-        const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
-        const signertemp = temporalProvider.getSigner();
-        return new ethers.Contract(balanceContract, balanceABI, signertemp);
-    }
 
     //for contract 1
     const getGameContract = async () => {
@@ -135,6 +127,7 @@ function App() {
     const getRoundInfo = async () => {
       const Contract = await getGameContract();
       const roundInfo = await Contract.getCurrentRoundInfo();
+      console.log(roundInfo);
       const fix = parseInt(roundInfo[1]);
       //const fix = (Math.round(roundInfo[1]/10) * 10 ) / 10**18;
       let timeLeft = (parseInt(roundInfo[3]));
@@ -177,7 +170,6 @@ function App() {
       } else {
         setRegistered(true);
       }
-      setAffcode((Math.round(playerInfo[5]/10) * 10 ) / 10);
       setPlayerKeys(((Math.round(playerInfo[2]/10) * 10 ) / 10**18).toFixed(4));
       setPlayerWinning( (parseInt(playerInfo[3])/1e18).toFixed(4) );
       setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10**18);
@@ -186,12 +178,19 @@ function App() {
 
 
 
-    //get playerInfo
-
-
+    //get 
     const clearNotify = () => {
       setNotifystate(false);
       setNotifyMessage("");
+    }
+
+
+    //get affcode 
+    const setAffiliatecode = async (addr) => {
+      const Contract = await getGameContract();
+      const getaff = await Contract.pIDxAddr_(addr);
+      console.log(parseInt(getaff))
+      setAffcode(parseInt(getaff));
     }
 
 
@@ -203,6 +202,11 @@ function App() {
         //getTime();
         getRoundInfo();
         getPlayerInfo();
+
+       if(id?.params.id) {
+        console.log("running aff");
+        setAffiliatecode(id.params.id);
+       }
 
 
        if(warnnotify) {
@@ -234,20 +238,21 @@ function App() {
         }, 30000);
        }
 
-
+     
       socket.on('response', (data) => {
         console.log("called websocket")
         setNotifystate(true);
         setNotifyMessage(`${data} Bought and just Got hold of the key`);
       });
-    }, [socket, notifystate])
+      
+    }, [ socket, notifystate])
 
 
 
   return (
     <>
     <Routes>
-       <Route path="/" element={
+      <Route path="/" element={
 
     <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
     {loading &&
@@ -337,12 +342,102 @@ function App() {
 
 
         } />
-    </Routes>
+
+       <Route path="/:id" element={
+
+    <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
+    {loading &&
+      <div className="absolute flex flex-col justify-center items-center w-full h-[100%] bg-fomoGrey" >
+        <div className="text-[#f000f0] font- text-lg ">Note this will take a bit of time , as this is our security measure against hacks,
+        Please do not leave page.</div>
+          <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
+      </div>
+      } 
+
+    <NavBar
+      signer={signer}
+      setSigner={setSigner}
+      signerAddress={signerAddress}
+      setSignerAddress={setSignerAddress}
+      provider={provider}
+      setProvider={setProvider}
+      chain={chain}
+      setChain={setChain}
+    />
+    <Home
+      signer={signer}
+      setSigner={setSigner}
+      signerAddress={signerAddress}
+      setSignerAddress={setSignerAddress}
+      cbalance={cbalance}
+      timeleft={timeleft}
+      callAgain={callAgain}
+      setCallAgain={setCallAgain}
+      roundInfo={roundInfo}
+    />
+    {warnnotify &&
+      <WarnNotify
+      warnMessage={warnMessage}
+      setWarnMessage={setWarnMessage}
+      warnType={warnType}
+      setWarnType={setWarnType}
+      />
+    }
+
+    <Menu
+      signer={signer}
+      setSigner={setSigner}
+      signerAddress={signerAddress}
+      setSignerAddress={setSignerAddress}
+      roundInfo={roundInfo}
+      whales={whales}
+      bears={bears}
+      sneks={sneks}
+      bulls={bulls}
+      currentPot={currentPot}
+      playerKeys={playerKeys}
+      playerWinnings={playerWinnings}
+      selectedTheme={selectedTheme}
+      setSelectedTheme={setSelectedTheme}
+      notifystate={notifystate}
+      setNotifystate={setNotifystate}
+      notifyMessage={notifyMessage}
+      setNotifyMessage={setNotifyMessage}
+      callAgain={callAgain}
+      setCallAgain={setCallAgain}
+      timeleft={timeleft}
+      SetTimeleft={SetTimeleft}
+      affcode={affcode}
+      setAffcode={setAffcode}
+      playerName={playerName}
+      setPlayerName={setPlayerName}
+      playerRoundEth={playerRoundEth}
+      setPlayerRoundEth={setPlayerRoundEth}
+
+      setWarnType={setWarnType}
+      setWarnMessage={setWarnMessage}
+      setWarnNotify={setWarnNotify}
+
+      registered={registered}
+
+      loading={loading}
+      setLoading={setLoading}
+    />
+
+    {notifystate && 
+      <Notify 
+        notifyMessage={notifyMessage}
+        setNotifyMessage={setNotifyMessage}/>
+    }
+  </div>
 
 
-    <Routes>
+        } />
+ 
+    
       <Route path="/wiki" element={<Wiki  />} />
-    </Routes>
+
+      </Routes>
   </>
   );
 }

@@ -8,7 +8,7 @@ import tokenAbi from "./token.json";
 //fomo short testnet 0xd7987938613B467344155b4bbD9EeF27Ef483138
 //0xf4c644637C7e08285061ef0DF3739b414A8A2F97
 //main 0x422e58Fa0c33766ec2659d8534e85089DBDeC15c
-export const gameContract = "0x5B23365F3B31215eF4D7ab641D05C454ee92674d";
+export const gameContract = "0xE3D447EBD83c8bc6F57a410d9320690E0Bc3f0e2";
 
 
 
@@ -19,7 +19,7 @@ export const balanceContract = "0x8a898bd0343fbC85B353a6e835efC6Fd9038731c";
 
 
 
-export const tokenContract = "0x060A10490fFEd606A945f4AB57f7fFaF72C828A8";
+export const tokenContract = "0x6c73a325b9fA2D17296f8008805bb3ddd2F4484d";
 
 
 

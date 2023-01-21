@@ -11,10 +11,10 @@ export default function TutorialModal({setModal}) {
                         </svg>
                         </button>
                     </div>
-                    <p className="text-base text-white my-4 font-light  font-fomofont">Buy a key by choosing the amount of keys you want, choosing the team and then clicking on the <b className='font-bold'>SEND ETH</b> button.</p>
+                    <p className="text-base text-white my-4 font-light  font-fomofont">Buy a key by choosing the amount of keys you want, choosing the team and then clicking on the <b className='font-bold'>SEND SOS</b> button.</p>
                     <p className="text-base text-white my-1 font-light mb-5 font-fomofont">Congratulations, you are now holding the key to the pot! You will win the pot as long as nobody else buys another key.</p>
                     <h1 className='text-white mt-2 mb-1 text-2xl' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>Want to spread your joy and earn 10% affiliate fees?</h1>
-                    <p className="text-base text-white font-light  font-fomofont">Just register a name for <b className='font-bold' style={{ textShadow: ' gold 0px 0px 10px, gold 0px 0px 10px' }}>0.01 ETH </b>in the <b className='font-bold'>Vanity & Referrals</b> tab.</p>
+                    <p className="text-base text-white font-light  font-fomofont">Just register a name for <b className='font-bold' style={{ textShadow: ' gold 0px 0px 10px, gold 0px 0px 10px' }}>0.01 SOS </b>in the <b className='font-bold'>Vanity & Referrals</b> tab.</p>
                     <p className="text-base text-white my-1 font-light font-fomofont">Whenever someone purchases keys through your link, <b className='font-bold' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>10%</b> of their purchase will go directly to you!</p>
                     <p className="text-base text-white my-1 font-light mb-5 font-fomofont">Once your name is registered, a <b className='font-bold'>Vanity Referral </b> link will be made for you. For example <a className='font-bold text-[#0d6efd]' href="/">SOS3D.net/inventor</a>.</p>
                     <p className="text-base text-white my-1 font-light mb-5 font-fomofont">Btw, if you have a name registered and you are the most recent key buyer, then your name will show up at the top! For example, <b className='font-bold'>satoshi is EXIT SCAMMING</b>.</p>
