@@ -23,6 +23,7 @@ export default function Menu(props) {
             setPlayerName={props.setPlayerName}
             playerWinnings={props.playerWinnings}
             playerRoundEth={props.playerRoundEth}
+            affearn={props.affearn}
 
             setWarnType={props.setWarnType}
             setWarnMessage={props.setWarnMessage}
@@ -32,6 +33,8 @@ export default function Menu(props) {
 
             loading={props.loading}
             setLoading={props.setLoading}
+
+            currentPot={props.currentPot}
          />   
          <SubNavTwo
            signerAddress={props.signerAddress}

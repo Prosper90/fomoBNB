@@ -41,6 +41,8 @@ export default function SubNavOne(props) {
                         signerAddress={props.signerAddress}
                         playerWinnings={props.playerWinnings}
                         playerRoundEth={props.playerRoundEth}
+                        affearn={props.affearn}
+                        currentPot={props.currentPot}
 
                         setWarnType={props.setWarnType}
                         setWarnMessage={props.setWarnMessage}

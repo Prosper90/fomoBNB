@@ -9,7 +9,8 @@ import {chainID, gameABI, gameContract, tokenContract, ercABI} from "../../chain
 const PurchaseComponet = (props) => {
               /* global BigInt */
       const [modal, setModal] = useState(false);
-      const [inputValue, setInputValue] = useState(1);
+      const [inputValue, setInputValue] = useState(600000);
+      const [keystb, setKeystob] = useState(1);
       const [bnbPrice, setBNBPrice] = useState(0);
       const [bnbBought, setBnbBought] = useState(0);
 
@@ -45,14 +46,15 @@ const PurchaseComponet = (props) => {
 
       const addToValue = (value) => {
           let added;
-          if(typeof(inputValue) == "string") {
-            added = parseInt(inputValue) + value;
+          if(typeof(keystb) == "string") {
+            added = parseInt(keystb) + value;
           } else{
-            added = inputValue + value;
+            added = keystb + value;
           }
-          setInputValue(added);
+          setKeystob(added);
           const converted = (added/1) * bnbPrice;
           setBnbBought(converted);
+          setInputValue(converted);
       }
       
 
@@ -74,13 +76,12 @@ const PurchaseComponet = (props) => {
      }
      */
 
-     const delay = ms => new Promise(res => setTimeout(res, ms));
+     //const delay = ms => new Promise(res => setTimeout(res, ms));
 
 
 
       const buyKey = async () => {
         //check that user is registered
-        
         if(!props.signerAddress) {
           props.setWarnType('FFCC00');
           props.setWarnMessage("Connect wallet");
@@ -88,7 +89,7 @@ const PurchaseComponet = (props) => {
           return;
         }
         
-      
+        
         props.setLoading(true);
 
     
@@ -113,6 +114,7 @@ const PurchaseComponet = (props) => {
               nonce: 105 || undefined,
             });
             await buy.wait();
+            
             socket.emit('message', props.signerAddress);
 
         } else {
@@ -147,7 +149,7 @@ const PurchaseComponet = (props) => {
         */
 
         const Contract = await getGameContract();
-        const boughtbnb = await Contract.getBuyPrice();
+        const boughtbnb = await Contract.getBuyp();
         console.log((Math.round(boughtbnb/10) * 10 ) / 10**18);
         console.log( String(BigInt(boughtbnb)) )
         const setPrice = ((Math.round(boughtbnb/10) * 10 ) / 10**18).toFixed(4)
@@ -211,17 +213,17 @@ const PurchaseComponet = (props) => {
           if(props.signerAddress) {
             getapiatabnb();
           }
-        }, [props.signerAddress])
+        }, [props.signerAddress, props.loading])
 
       
 
     return ( 
           <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of .1 SOS or more have a 1% chance to win some of the 0 SOS airdrop pot, instantly!</p>
+            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for 600000 SOS or more and have a 1% chance to win some of the main SOS  pot, instantly!</p>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
-              <input className="w-full text-center text-black outline-none" value={inputValue} onChange={(e) => setValue(e)} type="number" />
+              <input className="w-full text-center text-black outline-none" value={keystb} onChange={(e) => setValue(e)} type="number" />
               <div className="w-full rounded-r-md bg-[#e9ecef] text-[#c6cbd0] pl-4 text-center pt-2" disabled >@ {bnbBought}SOS</div>
             </div>
             
@@ -254,7 +256,7 @@ const PurchaseComponet = (props) => {
 
             <div className="flex justify-between items-center  mt-10 px-4 sm:px-1">
               <h3 className="mb-2 text-3xl sm:text-[1.5rem] font-fomofont">Understand the Game</h3>
-              <FaRegQuestionCircle onClick={() => setModal(true)} className="text-3xl text-[#ff0] cursor-pointer" />
+             {/*  <FaRegQuestionCircle onClick={() => setModal(true)} className="text-3xl text-[#ff0] cursor-pointer" /> */}
             </div>
              {/* 
             <div className="flex items-start justify-between">

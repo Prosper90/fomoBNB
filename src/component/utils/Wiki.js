@@ -54,12 +54,7 @@ export default function Wiki() {
                         <li disabled> <a href="">Random airdrops</a> </li>
                       </ul>
                     </div>
-                    <a
-                      href="#"
-                      className="uk-button uk-button-outline-primary uk-button-small uk-visible@m"
-                    >
-                      Follow
-                    </a>
+                    
                   </div>
                 </div>
               </div>
@@ -81,6 +76,7 @@ export default function Wiki() {
                 insights. SOS3D is essentially a lottery where the house, and the house advantage goes directly to
                 players.
               </p>
+              {/* 
               <h2 id="testnet">Playing on Testnet</h2>
               <p>
 
@@ -159,9 +155,8 @@ export default function Wiki() {
                 mostly to other SOS players. After a round ends, much less of the pot will be distributed to SOS3D
                 holders as dividends. Bears push for distributing dividends to other players and to the winner.
               </p>
-        
+               */}     
             </div>
-
           </article>
         </div>
 
@@ -208,7 +203,7 @@ export default function Wiki() {
           />
         </div>
         <div className="uk-flex-first@m uk-text-left@m">
-          <p className="uk-text-small">Copyright 2017 Powered by Code Love</p>
+          <p className="uk-text-small">Copyright 2023 Powered SOS3D</p>
         </div>
       </div>
     </div>

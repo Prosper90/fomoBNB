@@ -512,26 +512,16 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_affCode",
-				"type": "address"
-			},
+		"inputs": [],
+		"name": "buyPrice",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "_team",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amount",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "buyXaddr",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -560,53 +550,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "_affCode",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_team",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "buyXname",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_rID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_eth",
-				"type": "uint256"
-			}
-		],
-		"name": "calcKeysReceived",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
@@ -630,7 +573,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "getBuyPrice",
+		"name": "getBuyp",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -1066,29 +1009,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_affCode",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_team",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_eth",
-				"type": "uint256"
-			}
-		],
-		"name": "reLoadXaddr",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "_affCode",
 				"type": "uint256"
@@ -1105,29 +1025,6 @@
 			}
 		],
 		"name": "reLoadXid",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "_affCode",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_team",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_eth",
-				"type": "uint256"
-			}
-		],
-		"name": "reLoadXname",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1202,52 +1099,6 @@
 			}
 		],
 		"name": "registerNameXID",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_nameString",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_affCode",
-				"type": "address"
-			},
-			{
-				"internalType": "bool",
-				"name": "_all",
-				"type": "bool"
-			}
-		],
-		"name": "registerNameXaddr",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_nameString",
-				"type": "string"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "_affCode",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bool",
-				"name": "_all",
-				"type": "bool"
-			}
-		],
-		"name": "registerNameXname",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"

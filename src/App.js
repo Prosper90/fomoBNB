@@ -40,19 +40,13 @@ function App() {
       const [currentRound, setCurrentRound] = useState();
       //current pot
       const [currentPot, setCurrentPot] = useState();
-      //balances for teams in current round
-      //for whales
-      const [whales, setWhales] = useState();
-      //for bears
-      const [bears, setBears] = useState();
-      //for sneks
-      const [sneks, setSneks] = useState();
-      //for bulls
-      const [bulls, setBulls] = useState();
+
       //playerkeys
       const [playerKeys, setPlayerKeys] = useState();
       //player winning
       const [playerWinnings, setPlayerWinning] = useState();
+      //player affiliate earning
+      const [affearn, setAffearn] = useState();      
       //player affilliate code
       const [affcode, setAffcode] = useState();
       //player name
@@ -81,8 +75,7 @@ function App() {
       const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
 
      
-      //let {id} = useParams();
-      //console.log(id);
+      //id for affiliate
       const id = useMatch('/:id');
 
 
@@ -99,16 +92,7 @@ function App() {
     }
 
 
-    //get balance
-    /*
-    const getRegistration = async () => {
-      const Contract = await getBalanceContract();
-      const registered = await Contract.balances();
-      const fix = (Math.round(balance/10) * 10 ) / 10;
-      setRegistered();
-      
-    }
-  */
+
 
     //getTimeleft
     /*
@@ -131,15 +115,7 @@ function App() {
       const fix = parseInt(roundInfo[1]);
       //const fix = (Math.round(roundInfo[1]/10) * 10 ) / 10**18;
       let timeLeft = (parseInt(roundInfo[3]));
-      //console.log(parseInt(roundInfo[1]));
-      //console.log(fix,"fix")
-      //console.log(timeLeft);
-      /*
-      setTimeout(() => {
-        console.log("All wrapped up setTimeOut");
-        SetTimeleft(timeLeft);   
-      }, 3000);
-      */
+
       SetTimeleft(timeLeft);   
       setRoundInfo(fix);
       //setting other datas
@@ -147,32 +123,27 @@ function App() {
       setCurrentPot(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(4));
       //get total value in contract
       setCBalance(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(4));
-      //teams balances
-      setWhales(((Math.round(roundInfo[9]/10) * 10 ) / 10**18).toFixed(4));
-      //for bears
-      setBears(((Math.round(roundInfo[10]/10) * 10 ) / 10**18).toFixed(4));
-      //for sneks
-      setSneks(((Math.round(roundInfo[11]/10) * 10 ) / 10**18).toFixed(4));
-      //for bulls
-      setBulls(((Math.round(roundInfo[12]/10) * 10 ) / 10**18).toFixed(4));
     }
 
     //getPlayerInfo
     const getPlayerInfo = async () => {
       const Contract = await getGameContract();
       const playerInfo = await Contract.getPlayerInfoByAddress(signerAddress);
-      console.log(playerInfo);
       setPlayerInfo(playerInfo);
-      setPlayerName((Math.round(playerInfo[1]/10) * 10 ) / 10);
       //set if registered
       if((Math.round(playerInfo[0]/10) * 10 ) / 10  == 0) {
         setRegistered(false);
       } else {
         setRegistered(true);
       }
+      //player keys
       setPlayerKeys(((Math.round(playerInfo[2]/10) * 10 ) / 10**18).toFixed(4));
+      //winning pot amount
       setPlayerWinning( (parseInt(playerInfo[3])/1e18).toFixed(4) );
+      //total sos invested for this round
       setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10**18);
+      //affiliate vault
+      setAffearn((Math.round(playerInfo[5]/10) * 10 ) / 10**18);
       
     }
 
@@ -245,6 +216,7 @@ function App() {
         setNotifyMessage(`${data} Bought and just Got hold of the key`);
       });
       
+      
     }, [ socket, notifystate])
 
 
@@ -257,7 +229,7 @@ function App() {
     <div className="h-auto pb-24 bg-cover bg-no-repeat relative" style={{ backgroundImage: "url('/images/uwfomo3dbackground.jpg')", backgroundAttachment:"fixed" }}>
     {loading &&
       <div className="absolute flex flex-col justify-center items-center w-full h-[100%] bg-fomoGrey" >
-        <div className="text-[#f000f0] font- text-lg ">Note this will take a bit of time , as this is our security measure against hacks,
+        <div className="text-[#f000f0] font- text-lg ">Note this will take three calls,
         Please do not leave page.</div>
           <BeatLoader color={"#FFFFFF"} loading={loading}  size={25} className='abolute top-[33%]' />
       </div>
@@ -299,10 +271,6 @@ function App() {
       signerAddress={signerAddress}
       setSignerAddress={setSignerAddress}
       roundInfo={roundInfo}
-      whales={whales}
-      bears={bears}
-      sneks={sneks}
-      bulls={bulls}
       currentPot={currentPot}
       playerKeys={playerKeys}
       playerWinnings={playerWinnings}
@@ -321,7 +289,9 @@ function App() {
       playerName={playerName}
       setPlayerName={setPlayerName}
       playerRoundEth={playerRoundEth}
+      affearn={affearn}
       setPlayerRoundEth={setPlayerRoundEth}
+
 
       setWarnType={setWarnType}
       setWarnMessage={setWarnMessage}
@@ -390,10 +360,6 @@ function App() {
       signerAddress={signerAddress}
       setSignerAddress={setSignerAddress}
       roundInfo={roundInfo}
-      whales={whales}
-      bears={bears}
-      sneks={sneks}
-      bulls={bulls}
       currentPot={currentPot}
       playerKeys={playerKeys}
       playerWinnings={playerWinnings}
@@ -412,6 +378,7 @@ function App() {
       playerName={playerName}
       setPlayerName={setPlayerName}
       playerRoundEth={playerRoundEth}
+      affearn={affearn}      
       setPlayerRoundEth={setPlayerRoundEth}
 
       setWarnType={setWarnType}

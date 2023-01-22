@@ -37,7 +37,7 @@ export default function VaultComponet(props) {
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                         {props.signerAddress ?
                              <>
-                              {props.playerRoundEth}
+                              {props.playerRoundEth} SOS
                              </>
                              :
                              <>
@@ -53,7 +53,7 @@ export default function VaultComponet(props) {
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                         {props.signerAddress ?
                              <>
-                              {props.playerWinnings}
+                              {props.currentPot} SOS
                              </>
                              :
                              <>
@@ -66,7 +66,17 @@ export default function VaultComponet(props) {
                  <div className="flex justify-between">
                     <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Bad Advice</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
-                        <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">0.0000 SOS</h2>
+                        <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
+                         {props.signerAddress ?
+                             <>
+                              {props.affearn } SOS
+                             </>
+                             :
+                             <>
+                              0.0000 SOS
+                             </>
+                           }
+                        </h2>
                     </div>
                 </div>
                  <div className="flex justify-between mt-5">
@@ -75,7 +85,7 @@ export default function VaultComponet(props) {
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]" style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>
                         {props.signerAddress ?
                              <>
-                              {props.playerWinnings}
+                              {props.playerWinnings} SOS
                              </>
                              :
                              <>

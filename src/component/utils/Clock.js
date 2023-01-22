@@ -27,6 +27,9 @@ export default function Clock(props) {
     //const countDownDate = new Date(date).getTime();
     //console.log(countDownDate);
 
+    //const nintyMinutesLater = new Date();
+    //nintyMinutesLater.setMinutes(nintyMinutesLater.getMinutes() + 30);
+
     interval = setInterval(() => {
       const now = new Date().getTime();
 
@@ -73,9 +76,6 @@ export default function Clock(props) {
 
 
   useEffect(() => {
-
-    //const nintyMinutesLater = new Date();
-    //nintyMinutesLater.setMinutes(nintyMinutesLater.getMinutes() + 1);
 
 
    if(props.signerAddress) {

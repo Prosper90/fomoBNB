@@ -7,12 +7,12 @@ export default function VanityAndReferralsComponent(props) {
     const [modal, setModal] = useState(false);
     const [copy, setCopy] = useState('Copy');
     const paramtext = "name"
-    const textToCopy = 'https://fomosos.netlify.app/';
+    const textToCopy = `https://fomosos.netlify.app/${props.signerAddress ? props.signerAddress :  undefined}`;
     const copyButtonRef = useRef(null);
 
     const copyToClipboard = (value) => {
         setCopy("copied");
-        navigator.clipboard.writeText(textToCopy + value);
+        navigator.clipboard.writeText(textToCopy);
     };
 
     useEffect(() => {
