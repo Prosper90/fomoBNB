@@ -24,6 +24,7 @@ export default function Menu(props) {
             playerWinnings={props.playerWinnings}
             playerRoundEth={props.playerRoundEth}
             affearn={props.affearn}
+            gen={props.gen}
 
             setWarnType={props.setWarnType}
             setWarnMessage={props.setWarnMessage}

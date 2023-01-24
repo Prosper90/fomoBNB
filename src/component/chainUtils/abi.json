@@ -134,12 +134,6 @@
 				"internalType": "uint256",
 				"name": "P3DAmount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "genAmount",
-				"type": "uint256"
 			}
 		],
 		"name": "onBuyAndDistribute",
@@ -212,12 +206,6 @@
 				"indexed": false,
 				"internalType": "uint256",
 				"name": "P3DAmount",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "genAmount",
 				"type": "uint256"
 			},
 			{
@@ -366,12 +354,6 @@
 				"internalType": "uint256",
 				"name": "P3DAmount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "genAmount",
-				"type": "uint256"
 			}
 		],
 		"name": "onReLoadAndDistribute",
@@ -476,12 +458,6 @@
 				"internalType": "uint256",
 				"name": "P3DAmount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "genAmount",
-				"type": "uint256"
 			}
 		],
 		"name": "onWithdrawAndDistribute",
@@ -529,11 +505,6 @@
 			{
 				"internalType": "uint256",
 				"name": "_affCode",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_team",
 				"type": "uint256"
 			},
 			{
@@ -1011,11 +982,6 @@
 			{
 				"internalType": "uint256",
 				"name": "_affCode",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_team",
 				"type": "uint256"
 			},
 			{

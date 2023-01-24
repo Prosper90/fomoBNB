@@ -43,6 +43,7 @@ export default function SubNavOne(props) {
                         playerRoundEth={props.playerRoundEth}
                         affearn={props.affearn}
                         currentPot={props.currentPot}
+                        gen={props.gen}
 
                         setWarnType={props.setWarnType}
                         setWarnMessage={props.setWarnMessage}

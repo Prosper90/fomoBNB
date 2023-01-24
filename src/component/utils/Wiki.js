@@ -48,7 +48,6 @@ export default function Wiki() {
                         <li><a href="#game">Game overview</a></li>
                         <li><a href="#testnet">Playing on Testnet</a></li>
                         <li> <a href="#rules">Rules of the game</a></li>
-                        <li> <a href="#teams">The teams</a></li>
                         <li disabled > <a href="">How to Benefit</a></li>
                         <li disabled>   <a href="">Referrals and Vanity</a> </li>
                         <li disabled> <a href="">Random airdrops</a> </li>

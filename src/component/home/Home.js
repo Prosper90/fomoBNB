@@ -8,6 +8,7 @@ export default function Home(props) {
   useEffect(() => {
 
   }, [])
+  
   return (
     <div className='text-white  flex my-1 font-fomofont flex-col items-center '>
        <p className='text-[2rem] sm:text-[1.525rem] font-[500]'>someone else</p>

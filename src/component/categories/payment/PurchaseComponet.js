@@ -13,20 +13,12 @@ const PurchaseComponet = (props) => {
       const [keystb, setKeystob] = useState(1);
       const [bnbPrice, setBNBPrice] = useState(0);
       const [bnbBought, setBnbBought] = useState(0);
-
+      const [AccountBalance, setAccountbalance] = useState("0");
 
 
       //socket.io
       const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
       
-      /*
-      socket.on('response', (data) => {
-        notify.textContent = data;
-        messageBar.style.backgroundColor = '#3F4E4F';
-        messageBar.style.height = '20vh';
-      });
-      */
-
 
 
       const getGameContract = async () => {
@@ -58,37 +50,34 @@ const PurchaseComponet = (props) => {
       }
       
 
-
-     //getTimeleft
-     /*
-     const getTime = async () => {
-      const Contract = await getGameContract();
-      const timeLeft = await Contract.getTimeLeft();
-      //console.log(ethers.utils.formatEther(timeLeft));
-      //const fix = (Math.round(timeLeft/10) * 10 ) / 10;
-      const fix = parseInt(BigInt(timeLeft));
-      if(fix == 0) {
-        //start  another round
-      } else {
-        props.setCallAgain(!props.callAgain);
-      }
-      props.SetTimeleft(fix);
-     }
-     */
-
-     //const delay = ms => new Promise(res => setTimeout(res, ms));
+      //get balance
+      const getBalance = async () => {
+        const tokenContractInstance = await gettokenContract();
+          setAccountbalance(String(await tokenContractInstance.balanceOf(props.signerAddress)));
+      };
 
 
 
       const buyKey = async () => {
         //check that user is registered
+        console.log("Called buy");
         if(!props.signerAddress) {
           props.setWarnType('FFCC00');
           props.setWarnMessage("Connect wallet");
           props.setWarnNotify(true);
           return;
         }
-        
+
+        /*
+        if(parseInt(AccountBalance) < inputValue ){
+          console.log("THis guy");
+          console.log(AccountBalance);
+          props.setWarnType('FFCC00');
+          props.setWarnMessage("Insufficient SOS function");
+          props.setWarnNotify(true);
+          return;
+        }
+        */
         
         props.setLoading(true);
 
@@ -109,7 +98,7 @@ const PurchaseComponet = (props) => {
         if(props.affcode) {
           console.log(props.affcode);
           console.log("second one check");
-            const buy = await contractInstance.buyXid(props.affcode, fixedTeam, fees, {
+            const buy = await contractInstance.buyXid(props.affcode, fees, {
               gasLimit: 1000000,
               nonce: 105 || undefined,
             });
@@ -121,7 +110,7 @@ const PurchaseComponet = (props) => {
           const affcode = 0;
 
           console.log("Third one check");
-            const buy = await contractInstance.buyXid(affcode, fixedTeam, fees,{
+            const buy = await contractInstance.buyXid(affcode, fees,{
               gasLimit: 1000000,
               nonce: 105 || undefined,
             });
@@ -176,24 +165,19 @@ const PurchaseComponet = (props) => {
       //Buy keys with earned points
       const usevault = async () => {
         const Contract = await getGameContract();
-
-        const getRandom = await Contract.getRandomNumber();
-        await getRandom.wait();
-
-
         if(props.affcode) {
-          console.log("IN here");
-          const usev = await Contract.buyXid(props.affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)), {
-            gasLimit: 100000,
+          console.log("IN here one");
+          const usev = await Contract.reLoadXid(props.affcode, ethers.utils.parseEther(String(inputValue)), {
+            gasLimit: 10000000,
             nonce: 105 || undefined,
           });
           await usev.wait();
           socket.emit('message', props.signerAddress);
       } else {
-        console.log("IN here");
+        console.log("IN here two");
         const affcode = 0;
-        const usev = await Contract.reLoadXid(affcode, props.selectedTheme, ethers.utils.parseEther(String(inputValue)), {
-          gasLimit: 100000,
+        const usev = await Contract.reLoadXid(affcode, ethers.utils.parseEther(String(inputValue)), {
+          gasLimit: 10000000,
           nonce: 105 || undefined,
         } );
           await usev.wait();
@@ -212,6 +196,7 @@ const PurchaseComponet = (props) => {
         useEffect(() => {
           if(props.signerAddress) {
             getapiatabnb();
+            getBalance();
           }
         }, [props.signerAddress, props.loading])
 
@@ -219,7 +204,7 @@ const PurchaseComponet = (props) => {
 
     return ( 
           <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for 600000 SOS or more and have a 1% chance to win some of the main SOS  pot, instantly!</p>
+            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for 600000 SOS </p>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
@@ -250,7 +235,10 @@ const PurchaseComponet = (props) => {
                {!props.signerAddress ?
                 <button disabled className="flex opacity-50 items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5"><FaPiggyBank className="mr-2" />Use Vault </button>
                 :
-                <button  className="flex  items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5 cursor-pointer" onClick={usevault}><FaPiggyBank className="mr-2" />Use Vault </button>
+                <button  className="flex  items-center border  border-[#f000f0] w-full justify-center rounded-xl  px- p-1.5 cursor-pointer" onClick={usevault}>
+                  <FaPiggyBank className="mr-2" />
+                  Use Vault 
+                  </button>
                }
             </div>
 

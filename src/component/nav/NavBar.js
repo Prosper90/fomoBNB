@@ -146,9 +146,16 @@ export default function NavBar(props) {
         return;
       }
 
+
+      /*
       const community = () => {
-        window.location.href = `https://t.me/theopendao_official`;
+        window.open = `https://www.theopendao.com/`;
       }
+      */
+      const handleNavigate = (link) => {
+        window.open(link, "_blank", "noopener,noreferrer");
+      };
+      
       
 
         //useEffect
@@ -197,7 +204,7 @@ export default function NavBar(props) {
             <span className='text-white font-sans font-[300]' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }} >SOS3D</span>
             <ul className="flex sm:flex-col sm:mt-16  sm:items-center justify-between items-center ml-16 sm:ml-[-27px] w-full ">
                 <li><button onClick={() => setModal(true)} className='p-2 text-white sm:mb-4 rounded-md text-sm hover:border hover:bg-transparent hover:border-[#f000f0] bg-fomopink'>Tutorial</button></li>
-                <li><a><button className='text-white sm:mb-4' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }} onClick={community}>Community</button></a></li>
+                <li><a><button className='text-white sm:mb-4' style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}  onClick={()=>handleNavigate("https://www.theopendao.com/")}>Community</button></a></li>
                 <li><p className='text-[#6c757d] text-sm sm:hidden font-thin'>{props.signerAddress ? "Connected" : "You're not connected to SOS3D"}</p></li>
                 <li><a><button className='text-white sm:mb-4' style={{ textShadow: " 0 0 10px #0078f0, 0 0 10px #0034ca" }} onClick={wiki} >SOS3D Wiki</button></a></li>
                 <li><p className='text-[#6c757d] text-sm 2xl:hidden sm:block my-4 font-thin'>{props.signerAddress ? "Connected" : "You're not connected to SOS3D"}</p></li>

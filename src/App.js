@@ -49,6 +49,8 @@ function App() {
       const [affearn, setAffearn] = useState();      
       //player affilliate code
       const [affcode, setAffcode] = useState();
+      //general vault
+      const [gen, setGen] = useState();
       //player name
       const [playerName, setPlayerName] = useState();
       //player round eth
@@ -144,6 +146,8 @@ function App() {
       setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10**18);
       //affiliate vault
       setAffearn((Math.round(playerInfo[5]/10) * 10 ) / 10**18);
+      //general vault
+      setGen((Math.round(playerInfo[4]/10) * 10 ) / 10**18);
       
     }
 
@@ -291,7 +295,7 @@ function App() {
       playerRoundEth={playerRoundEth}
       affearn={affearn}
       setPlayerRoundEth={setPlayerRoundEth}
-
+      gen={gen}
 
       setWarnType={setWarnType}
       setWarnMessage={setWarnMessage}
@@ -380,6 +384,7 @@ function App() {
       playerRoundEth={playerRoundEth}
       affearn={affearn}      
       setPlayerRoundEth={setPlayerRoundEth}
+      gen={gen}
 
       setWarnType={setWarnType}
       setWarnMessage={setWarnMessage}

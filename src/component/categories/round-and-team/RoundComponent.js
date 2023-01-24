@@ -8,9 +8,10 @@ export default function RoundComponent(props) {
 
 
     const getapiatabnb = async() => {
-        const response = await fetch("https://min-api.cryptocompare.com/data/price?fsym=BNB&tsyms=USD");
+        const response = await fetch("https://api.coingecko.com/api/v3/coins/opendao");
         var data = await response.json();
-        setBNBPrice(data.USD);
+        console.log(data)
+        setBNBPrice(data.market_data.current_price.bmd);
         }
 
 

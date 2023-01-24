@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaCheck, FaCopy } from 'react-icons/fa'
 import RegisterName from '../../utils/RegisterName';
-
+import {shortenAddress} from "../../chainUtils/trauncate";
 
 export default function VanityAndReferralsComponent(props) {
     const [modal, setModal] = useState(false);
     const [copy, setCopy] = useState('Copy');
     const paramtext = "name"
-    const textToCopy = `https://fomosos.netlify.app/${props.signerAddress ? props.signerAddress :  undefined}`;
+    const textToShow = `https://fomosos.netlify.app/${props.signerAddress ? shortenAddress(props.signerAddress) :  undefined}`;
+    const textToCopy = `https://fomosos.netlify.app/${props.signerAddress}`;
     const copyButtonRef = useRef(null);
 
     const copyToClipboard = (value) => {
@@ -29,7 +30,7 @@ export default function VanityAndReferralsComponent(props) {
 
                 <div className="flex flex-col justify-center items-center my-3 text-base font-light font-fomofont">
                     <h4 className=' text-xl font-normal font-fomofont'>Wallet Referral</h4>
-                    <p>{textToCopy}</p>
+                    <p>{textToShow}</p>
                     <button ref={copyButtonRef} onClick={() => copyToClipboard(props.signerAddress) } className='px-3 my-1 font-fomopink font-normal text-base flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-1.5 border-[#f000f0]'><FaCopy className='mr-1' />{copy}</button>
                 </div>
                 {/* 

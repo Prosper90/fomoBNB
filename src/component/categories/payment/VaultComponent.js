@@ -1,9 +1,21 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import { ethers } from 'ethers';
 import {chainID, gameABI, gameContract} from "../../chainUtils/constants";
 
 export default function VaultComponet(props) {
+
+
+
+    const [bnbPrice, setBNBPrice] = useState(0);
+
+
+    const getapiatabnb = async() => {
+        const response = await fetch("https://api.coingecko.com/api/v3/coins/opendao");
+        var data = await response.json();
+        console.log(data)
+        setBNBPrice(data.market_data.current_price.bmd);
+        }
 
 
     const getGameContract = async () => {
@@ -23,6 +35,12 @@ export default function VaultComponet(props) {
                 await withdraw.wait();
 
           }
+
+
+        useEffect(() => {
+        getapiatabnb();
+        }, [])
+
 
     return (
         <div className="bg-[#212529] w-[46vw] sm:w-[95vw] font-fomofont p-4 rounded-b-2xl rounded-r-2xl">
@@ -79,6 +97,22 @@ export default function VaultComponet(props) {
                         </h2>
                     </div>
                 </div>
+                <div className="flex justify-between">
+                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Gen Vault</h3>
+                    <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
+                        <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
+                         {props.signerAddress ?
+                             <>
+                              {props.gen } SOS
+                             </>
+                             :
+                             <>
+                              0.0000 SOS
+                             </>
+                           }
+                        </h2>
+                    </div>
+                </div>
                  <div className="flex justify-between mt-5">
                     <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Total Gains</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
@@ -96,7 +130,13 @@ export default function VaultComponet(props) {
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <span className="font-fomofont font-light mt-1 my-2">0 USD</span>
+                    <span className="font-fomofont font-light mt-1 my-2">
+                      { props.signerAddress ?
+                        (bnbPrice * props.playerWinnings).toFixed(4)
+                              :
+                             "0"
+                      } USD
+                    </span>
                 </div>
                 <button className="w-full flex items-center justify-center border hover:text-white hover:bg-[#f000f0] rounded-md py-2 border-[#f000f0] opacity-50" onClick={Withdraw} ><FaHandHoldingHeart className='mr-2'/>Withdraw</button>
             </div>
