@@ -72,6 +72,9 @@ function App() {
       //Preloader
       const [loading, setLoading] = useState(false);
       const [congrats, setCongrats] = useState(false);
+      const [called, setCalled] = useState(false);
+
+      const [rndwin, setRndWin] = useState();
 
 
    
@@ -132,6 +135,8 @@ function App() {
       setAffearn((Math.round(playerInfo[5]/10) * 10 ) / 10**18);
       //general vault
       setGen((Math.round(playerInfo[4]/10) * 10 ) / 10**18);
+      //roundwin
+      setRndWin((Math.round(playerInfo[7]/10) * 10 ) / 10**18);      
     }
 
     //congratulate winner
@@ -172,8 +177,9 @@ function App() {
         getRoundInfo();
         getPlayerInfo();
 
-        if(roundInfo != 0) {
+        if(roundInfo != 0 && called == false) {
           congratulate();
+          setCalled(true);
         }
 
 
@@ -293,6 +299,7 @@ function App() {
       affearn={affearn}
       setPlayerRoundEth={setPlayerRoundEth}
       gen={gen}
+      rndwin={rndwin}
 
       setWarnType={setWarnType}
       setWarnMessage={setWarnMessage}
@@ -389,6 +396,7 @@ function App() {
       affearn={affearn}      
       setPlayerRoundEth={setPlayerRoundEth}
       gen={gen}
+      rndwin={rndwin}
 
       setWarnType={setWarnType}
       setWarnMessage={setWarnMessage}

@@ -109,7 +109,8 @@ export default function RoundComponent(props) {
                             {props.signerAddress ?
                              <>
                               {/* props.playerWinnings */ }
-                              { (( ( 23 / 100) * props?.currentPot ) + props?.affearn).toFixed(2) }
+                              
+                              { ( props?.rndwin + props?.affearn ).toFixed(2) }
                              </>
                              :
                              <>
@@ -122,7 +123,7 @@ export default function RoundComponent(props) {
                     <div className="flex justify-end">
                         <span className="font-fomofont font-light mt-1">
                         { props.signerAddress ?
-                                   (bnbPrice * (( ( 23 / 100) * props?.currentPot ) + props?.affearn)).toFixed(2)
+                                   (bnbPrice * ( props?.rndwin + props?.affearn ).toFixed(2) )
                                    :
                                    "0"
                            } USD

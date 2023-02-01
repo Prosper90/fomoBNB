@@ -19,6 +19,7 @@ export default function SubNavTwo(props) {
                         time={props.timeleft}
                         affearn={props.affearn}
                         playerRoundEth={props.playerRoundEth}
+                        rndwin={props.rndwin}
                   />;
 
             default:

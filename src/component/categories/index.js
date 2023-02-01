@@ -52,6 +52,7 @@ export default function Menu(props) {
            timeleft={props.timeleft}
            affearn={props.affearn}
            playerRoundEth={props.playerRoundEth}
+           rndwin={props.rndwin}
          />
 
         </div>
