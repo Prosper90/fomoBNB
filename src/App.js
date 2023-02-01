@@ -177,9 +177,12 @@ function App() {
         getRoundInfo();
         getPlayerInfo();
 
-        if(roundInfo != 0 && called == false) {
-          congratulate();
-          setCalled(true);
+        if(roundInfo != 0) {
+          if(called == false) {
+            congratulate();
+            setCalled(true);
+          }
+
         }
 
 
