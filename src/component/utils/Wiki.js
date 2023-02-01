@@ -92,67 +92,21 @@ export default function Wiki() {
 
                 Now you can get started playing, Read below to better understand the game!
               </p>
+              */}
               <h4 id='rules'>Rules of the game</h4>
             <div className="">The rules of the game are both simple and fun</div>
-              <ol className="ol-pretty uk-list-large">
-                <li>Click your team name to open the Team Menu.</li>
-                <li>
-                  Purchase one or more keys which immediately makes you the "private key owner” until another
-                  person takes the keys from you.
-                </li>
-                <li>
-                 Every key purchased resets the time on the countdown clock to 90 seconds and very slightly increases
-                 the key price.
-                </li>
-                <li>
-                 Each time a new key is purchased, all key holders receive a portion of that sale proportionate to the
-                 number of keys held.
-
-                  You can recruit other participants to the game and receive an additional share of every key they
-                  purchase, at no cost to them!
-                </li>
-                <li>The round officially ends when the countdown clock reaches zero.</li>
-              </ol>
+              <p>
+                 SOS3D is a lottery game in which the grand prize winner is the last person to purchase a key — a lottery ticket — using SOS Token before the countdown timer runs down to zero. During a round, a timer is constantly counting down to zero. Every time a key is purchased, the buyer becomes the new “holder of the private keys” and additional time is added to the countdown. The price of the keys will get slightly more expensive with each purchase. When the timer reaches zero, the last person to have bought a key wins the round. At the end of the round, the SOS in the pot (the reward pool) is divvied up.
+              </p>
+              <h2 id="teams">Benefit</h2>
               <div className="">
-                At the end of the round, the SOS pot is distributed between several parties with the winner (private
-                keys owner) receiving half, and the rest of the players each receiving a share of the pot proportional
-                to the number of keys they held. In addition, a percentage of the pot is paid to SOS3D holders as
-                dividends. The specific split of the pot (who gets what) is determined by the contract, when the
-                 players purchase their last key.
+              Since SOS3D is a lottery game, the concept is similar to the idea that the player holding the key when the round ends wins the prize pool. It involves how a player retains the majority of control over the key and maintains that control throughout the entire round, keeping in mind that the game's timer gets longer with each purchase.
               </div>
+              <h2 id="teams">Referrals</h2>
               <div className="">
-                Once the keys are sold and the pot has been fully distributed, a new scam (round) begins anew! Keep
-                in mind that a portion of the pot is withheld to help kick off the next round
+                 SOS3D wants to thank anyone who shares the SOS3D while playing the game and recommending it to others. Every time a player uses their referral link to invite a friend to play the game, they receive a prize, and any key purchases made by the invited player earn the referrer a whopping 10% referral fee. You can avail of your referral link in the Referral section.
               </div>
-              <h2 id="teams">The Teams</h2>
-              <div className="">
-                In SOS3D, there are four major teams that players can associate themselves with. Every time you
-                purchase an additional key, you can select one of these four teams. The team you select represents both
-                how you want your buy-in dividends shared as well as the pot distribution if your team wins at the
-                end of the round once the timer runs out. In particular, each team is explained below:
-              </div>
-              <p>
-                @ snake - "Trickle down Divinomics". Your key buy-in price has a fair share distributed to all players and
-                to SOS3D holders. After a round ends, a larger portion of the pot is distributed to SOS3D holders as
-                dividends. snakes push for distributing more of the pot as dividends to other players and to SOS3D
-                holders.
-              </p>
-              <p>
-               © Whale - "Feed on the greed of others". After a round ends, a larger portion of the pot is held for the
-                next round and less given as dividends to players and holders. Whales push for keeping more of
-                the SOS around in the game for future rounds rather than distributing as dividends.
-              </p>
-              <p>
-                © Bull - "Break upwards, never stagnate”. After a round ends, a larger portion of the pot is distributed
-                to SOS holders as dividends. Bulls push for distributing more of the pot as dividends to other
-                players and a smaller amount to SOS3D holders than snakes.
-              </p>
-              <p>
-                © Bear - "Stand alone, fight alone". Your key buy-in price does not go to SOS3D and instead is distributed
-                mostly to other SOS players. After a round ends, much less of the pot will be distributed to SOS3D
-                holders as dividends. Bears push for distributing dividends to other players and to the winner.
-              </p>
-               */}     
+   
             </div>
           </article>
         </div>
