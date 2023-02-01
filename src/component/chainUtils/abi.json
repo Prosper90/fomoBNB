@@ -8,25 +8,6 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "randomness",
-				"type": "uint256"
-			}
-		],
-		"name": "RequestFulfilled",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
 				"indexed": true,
 				"internalType": "uint256",
 				"name": "affiliateID",
@@ -511,6 +492,11 @@
 				"internalType": "uint256",
 				"name": "_amount",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_keys",
+				"type": "uint256"
 			}
 		],
 		"name": "buyXid",
@@ -701,6 +687,25 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "getRoundWinner",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "winner",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -988,6 +993,11 @@
 				"internalType": "uint256",
 				"name": "_eth",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_keys",
+				"type": "uint256"
 			}
 		],
 		"name": "reLoadXid",
@@ -1181,6 +1191,11 @@
 			{
 				"internalType": "uint256",
 				"name": "icoAvg",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lrnd",
 				"type": "uint256"
 			}
 		],

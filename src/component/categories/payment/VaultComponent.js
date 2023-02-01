@@ -50,12 +50,12 @@ export default function VaultComponet(props) {
             <div className="bg-[#181c1d] p-4 font-fomofont rounded-md">
 
                 <div className="flex justify-between">
-                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >At Exit(estimated)</h3>
+                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Winning pot amount</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                         {props.signerAddress ?
                              <>
-                              {props.playerRoundEth} SOS
+                              {( 23 / 100) * props?.currentPot } SOS
                              </>
                              :
                              <>
@@ -66,12 +66,12 @@ export default function VaultComponet(props) {
                     </div>
                 </div>
                  <div className="flex justify-between">
-                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Exit Scammed</h3>
+                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " > Total size of the round</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                         {props.signerAddress ?
                              <>
-                              {props.currentPot} SOS
+                              {props?.currentPot} SOS
                              </>
                              :
                              <>
@@ -82,12 +82,12 @@ export default function VaultComponet(props) {
                     </div>
                 </div>
                  <div className="flex justify-between">
-                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Bad Advice</h3>
+                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Total referral amount</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                          {props.signerAddress ?
                              <>
-                              {props.affearn } SOS
+                              {props?.affearn } SOS
                              </>
                              :
                              <>
@@ -97,8 +97,9 @@ export default function VaultComponet(props) {
                         </h2>
                     </div>
                 </div>
+                {/*
                 <div className="flex justify-between">
-                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Gen Vault</h3>
+                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Holders earning</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                          {props.signerAddress ?
@@ -113,13 +114,14 @@ export default function VaultComponet(props) {
                         </h2>
                     </div>
                 </div>
+                */}
                  <div className="flex justify-between mt-5">
-                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >Total Gains</h3>
+                    <h3 className="flex items-center text-2xl font-light font-fomofont sm:text-[1.3rem] " >User earnings</h3>
                     <div className="flex flex-col justify-between items-center sm:text-[1.4rem]">
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]" style={{ textShadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f" }}>
                         {props.signerAddress ?
                              <>
-                              {props.playerWinnings} SOS
+                              {props?.playerWinnings} SOS
                              </>
                              :
                              <>

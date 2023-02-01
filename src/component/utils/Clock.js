@@ -44,13 +44,7 @@ export default function Clock(props) {
 
 
       if(distance <= 0 ) {
-        //clear timer
-        //show message
-        //props.setCallAgain(!props.callAgain);
-        //call the auto endRound function
-        //clearInterval(interval.current);
-        //console.log("Bad guy called timer");
-        //autoRound();
+        //congratulate winner
         
       } else {
         //update timer
@@ -59,8 +53,7 @@ export default function Clock(props) {
         setTimerSeconds(seconds);
         //let arrreturn = [days, hours, minutes, seconds];
         //console.log("arrreturn");
-       // return [days, hours, minutes, seconds];
-
+       //return [days, hours, minutes, seconds];
       }
 
     })

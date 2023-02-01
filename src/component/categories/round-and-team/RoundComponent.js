@@ -14,33 +14,35 @@ export default function RoundComponent(props) {
         setBNBPrice(data.market_data.current_price.bmd);
         }
 
-
+        const now = new Date().getTime();
 
         useEffect(() => {
             getapiatabnb();
-          }, [])
+            console.log(props.time, "Time setting");
+          }, [props.time])
 
     return (
             <div className="bg-[#212529] font-fomofont w-[48vw] sm:w-[94vw]  p-5 rounded-b-2xl rounded-r-2xl">
                 <div>Round {props.roundInfo}</div>
-                <div className="w-full flex items-center">
-                   <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" style={{width: '61%'}}>
+                {props.time * 1000 - now > 0 &&
+                    <div className="w-full flex items-center">
+                    <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" style={{width: '61%'}}>
                     Contract will drain in
                     </h3> 
-                     {props.signerAddress ?
-                       <Clock 
+                    
+                        <Clock 
                         time={props.time} 
                         signerAddress={props.signerAddress}
                         key={props.time}
                         />
-                        :
-                        <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" >loading....</h3>
-                      }
+                    </div>                
+                }
 
-                </div>
+                {/* 
                 {!props.signerAddress && 
                   <span className="text-xl font-medium font-fomofont">Not connected...</span>
                 }
+                */}
                 <div className="relative bg-black h-1  my-2 w-[46vw] sm:w-[85vw] sm:mb-4 mx- rounded-2xl">
                     <div className="abosulte bg-[#f000f0] w-[45vw] sm:w-[70vw]  h-1 rounded-2xl"></div>
                 </div>

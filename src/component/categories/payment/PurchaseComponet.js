@@ -14,7 +14,7 @@ const PurchaseComponet = (props) => {
       const [bnbPrice, setBNBPrice] = useState(0);
       const [bnbBought, setBnbBought] = useState(0);
       const [AccountBalance, setAccountbalance] = useState("0");
-
+      const [mainPrice, setMainPrice] = useState(600000);
 
       //socket.io
       const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
@@ -67,28 +67,34 @@ const PurchaseComponet = (props) => {
           props.setWarnNotify(true);
           return;
         }
+        console.log(inputValue, "inputValue");
+        console.log(AccountBalance);
+        console.log(parseInt(AccountBalance));
 
-        /*
+        
         if(parseInt(AccountBalance) < inputValue ){
           console.log("THis guy");
           console.log(AccountBalance);
           props.setWarnType('FFCC00');
-          props.setWarnMessage("Insufficient SOS function");
+          props.setWarnMessage("Insufficient SOS Amount");
           props.setWarnNotify(true);
           return;
         }
-        */
         
+   try {
+          
         props.setLoading(true);
 
     
         const contractInstance =  await getGameContract();
         const tokenContractInstance = await gettokenContract();
         const fees = ethers.utils.parseEther(String(inputValue));
-        const fixedTeam = ethers.utils.parseEther(String(0));
+        const keys = ethers.utils.parseEther(String(keystb));
         console.log(fees)
+        console.log(keys);
+        console.log(keystb, "bought keys");
 
-
+       
         const approve = await tokenContractInstance.approve(gameContract, fees);
         await approve.wait();
 
@@ -98,19 +104,19 @@ const PurchaseComponet = (props) => {
         if(props.affcode) {
           console.log(props.affcode);
           console.log("second one check");
-            const buy = await contractInstance.buyXid(props.affcode, fees, {
+
+            const buy = await contractInstance.buyXid(props.affcode, fees, keys, {
               gasLimit: 1000000,
               nonce: 105 || undefined,
             });
             await buy.wait();
-            
             socket.emit('message', props.signerAddress);
 
-        } else {
-          const affcode = 0;
+          } else {
+           const affcode = 100000000000;
 
           console.log("Third one check");
-            const buy = await contractInstance.buyXid(affcode, fees,{
+            const buy = await contractInstance.buyXid(affcode, fees, keys, {
               gasLimit: 1000000,
               nonce: 105 || undefined,
             });
@@ -126,6 +132,13 @@ const PurchaseComponet = (props) => {
         //getTime();
 
         props.setLoading(false);
+
+      } catch (error) {
+        props.setWarnType('FFCC00');
+        props.setWarnMessage("User canceled Transaction");
+        props.setWarnNotify(true);
+        props.setLoading(false);
+      }
         
       }
 
@@ -144,14 +157,17 @@ const PurchaseComponet = (props) => {
         const setPrice = ((Math.round(boughtbnb/10) * 10 ) / 10**18).toFixed(4)
         setBNBPrice(setPrice);
         setBnbBought(setPrice);
+        setMainPrice(setPrice);
         }
 
       
       const setValue = (e) => {
         console.log("value being set has been called")
-        setInputValue(e.target.value);
+        //setInputValue(e.target.value);
         const converted = (e.target.value/1) * bnbPrice;
         setBnbBought(converted);
+        setInputValue(converted);
+        setKeystob(e.target.value);
       }
 
 
@@ -164,10 +180,25 @@ const PurchaseComponet = (props) => {
 
       //Buy keys with earned points
       const usevault = async () => {
+
+        if(props.playerWinnings < inputValue ){
+          console.log("THis guy");
+          console.log(AccountBalance);
+          props.setWarnType('FFCC00');
+          props.setWarnMessage("Insufficient Vault Amount");
+          props.setWarnNotify(true);
+          return;
+        }
+        
         const Contract = await getGameContract();
+        const keys = ethers.utils.parseEther(String(keystb));
+
+        props.setLoading(true);
+        try {
+
         if(props.affcode) {
           console.log("IN here one");
-          const usev = await Contract.reLoadXid(props.affcode, ethers.utils.parseEther(String(inputValue)), {
+          const usev = await Contract.reLoadXid(props.affcode, ethers.utils.parseEther(String(inputValue)), keys, {
             gasLimit: 10000000,
             nonce: 105 || undefined,
           });
@@ -175,8 +206,8 @@ const PurchaseComponet = (props) => {
           socket.emit('message', props.signerAddress);
       } else {
         console.log("IN here two");
-        const affcode = 0;
-        const usev = await Contract.reLoadXid(affcode, ethers.utils.parseEther(String(inputValue)), {
+        const affcode = 100000000000;
+        const usev = await Contract.reLoadXid(affcode, ethers.utils.parseEther(String(inputValue)), keys, {
           gasLimit: 10000000,
           nonce: 105 || undefined,
         } );
@@ -189,8 +220,14 @@ const PurchaseComponet = (props) => {
       //getTime();
 
       props.setLoading(false);
-
+    } catch (error) {
+      props.setWarnType('FFCC00');
+      props.setWarnMessage("User canceled Transaction");
+      props.setWarnNotify(true);
+      props.setLoading(false);
       }
+
+    }
 
 
         useEffect(() => {
@@ -204,7 +241,7 @@ const PurchaseComponet = (props) => {
 
     return ( 
           <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for 600000 SOS </p>
+            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for {mainPrice} SOS </p>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>
@@ -243,7 +280,6 @@ const PurchaseComponet = (props) => {
             </div>
 
             <div className="flex justify-between items-center  mt-10 px-4 sm:px-1">
-              <h3 className="mb-2 text-3xl sm:text-[1.5rem] font-fomofont">Understand the Game</h3>
              {/*  <FaRegQuestionCircle onClick={() => setModal(true)} className="text-3xl text-[#ff0] cursor-pointer" /> */}
             </div>
              {/* 

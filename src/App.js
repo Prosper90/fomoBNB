@@ -9,6 +9,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import io from "socket.io-client";
 import { Routes, Route, Link, useMatch } from "react-router-dom";
 import Wiki from './component/utils/Wiki';
+import Congratulate from './component/utils/Congratulate';
 import {balanceABI, balanceContract, chainID, gameABI, gameContract} from "./component/chainUtils/constants";
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
       const [registered, setRegistered] = useState(false);
       //Preloader
       const [loading, setLoading] = useState(false);
+      const [congrats, setCongrats] = useState(false);
 
 
    
@@ -79,9 +81,6 @@ function App() {
      
       //id for affiliate
       const id = useMatch('/:id');
-
-
-    //console.log(addr);
 
       
 
@@ -93,21 +92,6 @@ function App() {
         return new ethers.Contract(gameContract, gameABI, signertemp);
     }
 
-
-
-
-    //getTimeleft
-    /*
-    const getTime = async () => {
-      const Contract = await getGameContract();
-      const timeLeft = await Contract.getTimeLeft();
-      console.log(ethers.utils.formatEther(timeLeft));
-      //const fix = (Math.round(timeLeft/10) * 10 ) / 10;
-      const fix = parseInt(BigInt(timeLeft));
-      console.log(fix);
-      SetTimeleft(fix);
-    }
-    */
 
     //getRoundInfo
     const getRoundInfo = async () => {
@@ -148,7 +132,17 @@ function App() {
       setAffearn((Math.round(playerInfo[5]/10) * 10 ) / 10**18);
       //general vault
       setGen((Math.round(playerInfo[4]/10) * 10 ) / 10**18);
-      
+    }
+
+    //congratulate winner
+    const congratulate = async () => {
+      const Contract = await getGameContract();
+      const winner = await Contract.getRoundWinner(signerAddress);
+      //call ui to show all those things
+      if(winner) {
+        setCongrats(true);
+      }
+
     }
 
 
@@ -177,6 +171,7 @@ function App() {
         //getTime();
         getRoundInfo();
         getPlayerInfo();
+        congratulate();
 
        if(id?.params.id) {
         console.log("running aff");
@@ -213,15 +208,13 @@ function App() {
         }, 30000);
        }
 
-     
+      
       socket.on('response', (data) => {
-        console.log("called websocket")
         setNotifystate(true);
         setNotifyMessage(`${data} Bought and just Got hold of the key`);
-      });
+        });
       
-      
-    }, [ socket, notifystate])
+    }, [socket, notifystate])
 
 
 
@@ -311,6 +304,12 @@ function App() {
       <Notify 
         notifyMessage={notifyMessage}
         setNotifyMessage={setNotifyMessage}/>
+    }
+
+  {congrats && 
+      <Congratulate 
+        setCongrats={setCongrats}
+        />
     }
   </div>
 
