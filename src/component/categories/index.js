@@ -49,7 +49,9 @@ export default function Menu(props) {
            playerWinnings={props.playerWinnings}
            callAgain={props.callAgain}
            setCallAgain={props.setCallAgain}
-           timeleft={props.timeleft} 
+           timeleft={props.timeleft}
+           affearn={props.affearn}
+           playerRoundEth={props.playerRoundEth}
          />
 
         </div>

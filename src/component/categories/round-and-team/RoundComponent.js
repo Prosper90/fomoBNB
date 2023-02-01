@@ -29,7 +29,7 @@ export default function RoundComponent(props) {
                     <h3 className="sm:text-[1.3rem] text-3xl font-fomofont font-medium my-2 s" style={{width: '61%'}}>
                     Contract will drain in
                     </h3> 
-                    
+
                         <Clock 
                         time={props.time} 
                         signerAddress={props.signerAddress}
@@ -108,7 +108,8 @@ export default function RoundComponent(props) {
                             <h2 className="flex items-center text-3xl sm:text-[1.3rem] font-fomofont">
                             {props.signerAddress ?
                              <>
-                              {props.playerWinnings}
+                              {/* props.playerWinnings */ }
+                              { (( ( 23 / 100) * props?.currentPot ) + props?.affearn).toFixed(2) }
                              </>
                              :
                              <>
@@ -121,7 +122,7 @@ export default function RoundComponent(props) {
                     <div className="flex justify-end">
                         <span className="font-fomofont font-light mt-1">
                         { props.signerAddress ?
-                                   bnbPrice * props.playerWinnings
+                                   (bnbPrice * (( ( 23 / 100) * props?.currentPot ) + props?.affearn)).toFixed(2)
                                    :
                                    "0"
                            } USD

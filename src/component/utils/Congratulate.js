@@ -5,15 +5,16 @@ export default function Congratulate(props) {
 
   const [message, setMessage] = useState('');
 
-  const handleShare = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+  const handleShare = (msg) => {
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(msg)}`;
     window.open(twitterUrl, '_blank');
   };
 
+  /*
   useEffect(() => {
     handleShare();
   }, [message]);
-
+*/
   return (
     <div className="bg-[#008000] text-[#FFF] h-[100px] fixed left-[22%] right-[0] top-[35%] p-7 w-[60%] rounded-[5px]" >
         <div className=" w-[100%] h-full flex flex-col justify-center items-center font-fomofont">
@@ -29,7 +30,10 @@ export default function Congratulate(props) {
             </div> 
           <div className="">
             Show off your winnning on Twitter
-            <input type="text" value={message} onChange={e => setMessage(e.target.value)} />
+            <button type="text"  className='p-2 text-white sm:mb-4 rounded-md text-sm hover:border hover:border-[#f000f0] bg-fomopink ml-3' value={message} onClick={e => handleShare(`I just won ${props.playerWinnings} SOS`)} >
+              Share
+             </button>
+
           </div>
         </div>
     </div>

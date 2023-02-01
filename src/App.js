@@ -106,9 +106,9 @@ function App() {
       setRoundInfo(fix);
       //setting other datas
       //current pot
-      setCurrentPot(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(4));
+      setCurrentPot(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(2));
       //get total value in contract
-      setCBalance(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(4));
+      setCBalance(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(2));
     }
 
     //getPlayerInfo
@@ -123,9 +123,9 @@ function App() {
         setRegistered(true);
       }
       //player keys
-      setPlayerKeys(((Math.round(playerInfo[2]/10) * 10 ) / 10**18).toFixed(4));
+      setPlayerKeys(((Math.round(playerInfo[2]/10) * 10 ) / 10**18).toFixed(2));
       //winning pot amount
-      setPlayerWinning( (parseInt(playerInfo[3])/1e18).toFixed(4) );
+      setPlayerWinning( (parseInt(playerInfo[3])/1e18).toFixed(2) );
       //total sos invested for this round
       setPlayerRoundEth((Math.round(playerInfo[6]/10) * 10 ) / 10**18);
       //affiliate vault
@@ -171,7 +171,11 @@ function App() {
         //getTime();
         getRoundInfo();
         getPlayerInfo();
-        congratulate();
+
+        if(roundInfo != 0) {
+          congratulate();
+        }
+
 
        if(id?.params.id) {
         console.log("running aff");
@@ -309,6 +313,7 @@ function App() {
   {congrats && 
       <Congratulate 
         setCongrats={setCongrats}
+        playerWinnings={playerWinnings}
         />
     }
   </div>
@@ -400,6 +405,13 @@ function App() {
         notifyMessage={notifyMessage}
         setNotifyMessage={setNotifyMessage}/>
     }
+
+      {congrats && 
+          <Congratulate 
+            setCongrats={setCongrats}
+            playerWinnings={playerWinnings}
+            />
+        }
   </div>
 
 

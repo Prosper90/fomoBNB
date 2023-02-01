@@ -55,7 +55,7 @@ export default function VaultComponet(props) {
                         <h2 className="flex items-center text-[1.75rem] font-normal font-fomofont sm:text-[1.4rem]">
                         {props.signerAddress ?
                              <>
-                              {( 23 / 100) * props?.currentPot } SOS
+                              {(( 23 / 100) * props?.currentPot).toFixed(2) } SOS
                              </>
                              :
                              <>
