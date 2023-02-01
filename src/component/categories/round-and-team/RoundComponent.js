@@ -110,7 +110,7 @@ export default function RoundComponent(props) {
                              <>
                               {/* props.playerWinnings */ }
                               
-                              { ( props?.rndwin).toFixed(2) }
+                              { ( props?.rndwin)?.toFixed(2) }
                              </>
                              :
                              <>
@@ -123,7 +123,7 @@ export default function RoundComponent(props) {
                     <div className="flex justify-end">
                         <span className="font-fomofont font-light mt-1">
                         { props.signerAddress ?
-                                   (bnbPrice * ( props?.rndwin ).toFixed(2) )
+                                   (bnbPrice * ( props?.rndwin ))?.toFixed(2) 
                                    :
                                    "0"
                            } USD
