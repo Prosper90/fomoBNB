@@ -7,8 +7,8 @@ import tokenAbi from "./token.json";
 //fomo soon game 0x4e8ecF79AdE5e2C49B9e30D795517A81e0Bf00B8
 //fomo short testnet 0xd7987938613B467344155b4bbD9EeF27Ef483138
 //0xf4c644637C7e08285061ef0DF3739b414A8A2F97
-//main 0x422e58Fa0c33766ec2659d8534e85089DBDeC15c
-export const gameContract = "0x81eD785c80F8593aDAbC648A3c8194c5fFe01934";
+//main 0xf5F126C7eeCe345e6f5BF330375c4FE77837eA04
+export const gameContract = "0xf5F126C7eeCe345e6f5BF330375c4FE77837eA04";
 
 
 
@@ -19,7 +19,7 @@ export const balanceContract = "0x728b662D78abB9092c1Bceaa60F89676e8857389";
 
 
 
-export const tokenContract = "0x6c73a325b9fA2D17296f8008805bb3ddd2F4484d";
+export const tokenContract = "0x3b484b82567a09e2588A13D54D032153f0c0aEe0";
 
 
 
