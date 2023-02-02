@@ -60,16 +60,13 @@ const PurchaseComponet = (props) => {
 
       const buyKey = async () => {
         //check that user is registered
-        console.log("Called buy");
+        //console.log("Called buy");
         if(!props.signerAddress) {
           props.setWarnType('FFCC00');
           props.setWarnMessage("Connect wallet");
           props.setWarnNotify(true);
           return;
         }
-        console.log(inputValue, "inputValue");
-        console.log(AccountBalance);
-        console.log(parseInt(AccountBalance));
 
         
         if(parseInt(AccountBalance) < inputValue ){
@@ -81,6 +78,7 @@ const PurchaseComponet = (props) => {
           return;
         }
         
+        
    try {
           
         props.setLoading(true);
@@ -88,9 +86,10 @@ const PurchaseComponet = (props) => {
     
         const contractInstance =  await getGameContract();
         const tokenContractInstance = await gettokenContract();
-        const fees = ethers.utils.parseEther(String(inputValue));
+        //const fees = ethers.utils.parseEther(String(inputValue));
+        const fees = ethers.utils.parseUnits(String(inputValue));
         const keys = ethers.utils.parseEther(String(keystb));
-        console.log(fees)
+        console.log(fees, inputValue, "fees check");
         console.log(keys);
         console.log(keystb, "bought keys");
 
@@ -115,7 +114,7 @@ const PurchaseComponet = (props) => {
           } else {
            const affcode = 100000000000;
 
-          console.log("Third one check");
+            console.log("Third one check");
             const buy = await contractInstance.buyXid(affcode, fees, keys, {
               gasLimit: 1000000,
               nonce: 105 || undefined,
@@ -198,7 +197,7 @@ const PurchaseComponet = (props) => {
 
         if(props.affcode) {
           console.log("IN here one");
-          const usev = await Contract.reLoadXid(props.affcode, ethers.utils.parseEther(String(inputValue)), keys, {
+          const usev = await Contract.reLoadXid(props.affcode, ethers.utils.parseUnits(String(inputValue)), keys, {
             gasLimit: 10000000,
             nonce: 105 || undefined,
           });
@@ -207,7 +206,7 @@ const PurchaseComponet = (props) => {
       } else {
         console.log("IN here two");
         const affcode = 100000000000;
-        const usev = await Contract.reLoadXid(affcode, ethers.utils.parseEther(String(inputValue)), keys, {
+        const usev = await Contract.reLoadXid(affcode, ethers.utils.parseUnits(String(inputValue)), keys, {
           gasLimit: 10000000,
           nonce: 105 || undefined,
         } );

@@ -221,13 +221,13 @@ function App() {
         }, 30000);
        }
 
-      
+    
       socket.on('response', (data) => {
         setNotifystate(true);
         setNotifyMessage(`${data} Bought and just Got hold of the key`);
         });
-      
-    }, [socket, notifystate])
+    
+    }, [  socket,  notifystate])
 
 
 
