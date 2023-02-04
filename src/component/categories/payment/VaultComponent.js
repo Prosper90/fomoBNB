@@ -28,7 +28,15 @@ export default function VaultComponet(props) {
 
 
         //getTimeleft
+        //playerWinnings
         const Withdraw = async () => {
+
+            if(playerWinnings <= 0) {
+                props.setWarnType('FFCC00');
+                props.setWarnMessage("You have no earning");
+                props.setWarnNotify(true);
+                return;
+              }
 
                 const Contract = await getGameContract();
                 const withdraw = await Contract.withdraw();
