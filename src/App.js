@@ -37,8 +37,7 @@ function App() {
       //round info
       const [roundInfo, setRoundInfo] = useState();
       //more round info
-      //current round
-      const [currentRound, setCurrentRound] = useState();
+  
       //current pot
       const [currentPot, setCurrentPot] = useState();
 
@@ -76,6 +75,11 @@ function App() {
 
       const [rndwin, setRndWin] = useState();
 
+      //for previous round info
+      const [prevWinner, setPrevWinner] = useState();
+      const [prevData, setPrevData] = useState([]);
+      const [amountWon, setAmountWon] = useState();
+
 
    
       //socket.io
@@ -112,6 +116,9 @@ function App() {
       setCurrentPot(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(2));
       //get total value in contract
       setCBalance(((Math.round(roundInfo[5]/10) * 10 ) / 10**18).toFixed(2));
+
+      const search = fix - 1;
+      prevRound(search);
     }
 
     //getPlayerInfo
@@ -152,7 +159,7 @@ function App() {
 
 
 
-    //get 
+    //clear notification 
     const clearNotify = () => {
       setNotifystate(false);
       setNotifyMessage("");
@@ -167,6 +174,26 @@ function App() {
       setAffcode(parseInt(getaff));
     }
 
+    //get prevRound data 
+    const prevRound = async (roundNumber) => {
+      console.log("Prev call datas");
+      const Contract = await getGameContract();
+      console.log("prev 2", roundNumber);
+      const getroundInfo = await Contract.round_(roundNumber);
+      console.log("prev 3", parseInt(getroundInfo[0]));
+      const getWinner = await Contract.plyr_(parseInt(getroundInfo[0]));
+      console.log("prev 4", getWinner[0]);
+      //setRndWin((Math.round(playerInfo[7]/10) * 10 ) / 10**18);
+      console.log(getroundInfo, "Prev call getroundInfo");
+      console.log(getWinner, "Prev call getWinner");
+      setPrevWinner(getWinner[0]);
+      setAmountWon((Math.round(getroundInfo[7]/10) * 10 ) / 10**18);
+      
+      //let data = await fetch(`https://fomo.herokuapp.com/getRoundInfo/${roundNumber}`);
+      //const value = await data.json();
+      //setPrevData(value.round);
+    }
+
 
 
 
@@ -176,6 +203,7 @@ function App() {
         //getTime();
         getRoundInfo();
         getPlayerInfo();
+        //prevRound();
 
         if(roundInfo != 0) {
           if(called == false) {
@@ -221,7 +249,7 @@ function App() {
         }, 30000);
        }
 
-    
+  
       socket.on('response', (data) => {
         setNotifystate(true);
         setNotifyMessage(`${data} Bought and just Got hold of the key`);
@@ -254,6 +282,9 @@ function App() {
       setProvider={setProvider}
       chain={chain}
       setChain={setChain}
+      prevWinner={prevWinner}
+      prevData={prevData}
+      amountWon={amountWon}
     />
     <Home
       signer={signer}
@@ -351,6 +382,9 @@ function App() {
       setProvider={setProvider}
       chain={chain}
       setChain={setChain}
+     prevWinner={prevWinner}
+      prevData={prevData}
+      amountWon={amountWon}       
     />
     <Home
       signer={signer}

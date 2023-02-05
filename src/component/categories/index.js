@@ -36,6 +36,7 @@ export default function Menu(props) {
             setLoading={props.setLoading}
 
             currentPot={props.currentPot}
+            roundInfo={props.roundInfo}
          />   
          <SubNavTwo
            signerAddress={props.signerAddress}

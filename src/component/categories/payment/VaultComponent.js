@@ -13,7 +13,7 @@ export default function VaultComponet(props) {
     const getapiatabnb = async() => {
         const response = await fetch("https://api.coingecko.com/api/v3/coins/opendao");
         var data = await response.json();
-        console.log(data)
+        //console.log(data)
         setBNBPrice(data.market_data.current_price.bmd);
         }
 
@@ -31,7 +31,7 @@ export default function VaultComponet(props) {
         //playerWinnings
         const Withdraw = async () => {
 
-            if(playerWinnings <= 0) {
+            if(props.playerWinnings <= 0) {
                 props.setWarnType('FFCC00');
                 props.setWarnMessage("You have no earning");
                 props.setWarnNotify(true);

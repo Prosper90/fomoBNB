@@ -15,9 +15,11 @@ const PurchaseComponet = (props) => {
       const [bnbBought, setBnbBought] = useState(0);
       const [AccountBalance, setAccountbalance] = useState("0");
       const [mainPrice, setMainPrice] = useState(600000);
+      const [dollarPrice, setDollarPrice] = useState(0);
+      const [dol, setDolls] = useState(0);
 
       //socket.io
-      const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
+       const socket = io.connect(`wss://fomo.herokuapp.com`); //127.0.0.1:8000  //fomo.herokuapp.com
       
 
 
@@ -47,6 +49,7 @@ const PurchaseComponet = (props) => {
           const converted = (added/1) * bnbPrice;
           setBnbBought(converted);
           setInputValue(converted);
+          setDollarPrice(dol * converted);
       }
       
 
@@ -130,7 +133,18 @@ const PurchaseComponet = (props) => {
         props.setNotifyMessage(`${props.signerAddress} Bought and just Got hold of the key`);
         //getTime();
 
-        props.setLoading(false);
+          props.setLoading(false);
+
+         await fetch(`https://fomo.herokuapp.com/updateRound`, 
+          {
+            method: 'POST',   
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ round: props.roundInfo})
+          }
+         );
 
       } catch (error) {
         props.setWarnType('FFCC00');
@@ -157,6 +171,8 @@ const PurchaseComponet = (props) => {
         setBNBPrice(setPrice);
         setBnbBought(setPrice);
         setMainPrice(setPrice);
+
+        getapiatsos(setPrice);
         }
 
       
@@ -167,6 +183,7 @@ const PurchaseComponet = (props) => {
         setBnbBought(converted);
         setInputValue(converted);
         setKeystob(e.target.value);
+        setDollarPrice(dol * converted);
       }
 
 
@@ -211,7 +228,7 @@ const PurchaseComponet = (props) => {
           nonce: 105 || undefined,
         } );
           await usev.wait();
-         socket.emit('message', props.signerAddress);
+          socket.emit('message', props.signerAddress);
       }
 
       props.setNotifystate(true);
@@ -219,6 +236,18 @@ const PurchaseComponet = (props) => {
       //getTime();
 
       props.setLoading(false);
+
+      await fetch(`https://fomo.herokuapp.com/updateRound`, 
+      {
+        method: 'POST',   
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ round: props.roundInfo})
+      }
+     );
+
     } catch (error) {
       props.setWarnType('FFCC00');
       props.setWarnMessage("User canceled Transaction");
@@ -227,6 +256,14 @@ const PurchaseComponet = (props) => {
       }
 
     }
+
+    const getapiatsos = async(amount) => {
+      const response = await fetch("https://api.coingecko.com/api/v3/coins/opendao");
+      var data = await response.json();
+      //console.log(data)
+      setDollarPrice(data.market_data.current_price.bmd * amount);
+      setDolls(data.market_data.current_price.bmd);
+      }
 
 
         useEffect(() => {
@@ -240,7 +277,15 @@ const PurchaseComponet = (props) => {
 
     return ( 
           <div className="bg-[#212529] font-fomofont w-[46vw] sm:w-full p-4 sm:p-3 rounded-b-2xl rounded-r-2xl">
-            <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for {mainPrice} SOS </p>
+
+            <div className="flex justify-between pr-[4.5rem]">
+                <p className="text-base my-1 font-light mb-5 font-fomofont">Purchases of 1 key for {mainPrice} SOS </p>
+                {props.signerAddress &&
+                    <div className="pt-5">
+                    $ {(dollarPrice).toFixed(2)}
+                  </div>
+                 }
+            </div>
 
             <div className="flex ">
               <div className="text-[#212529] font-fomofont  rounded-l-md bg-[#e9ecef] border-[#ced4da] border px-3 py-2"><FaKey className='text-xl' /> </div>

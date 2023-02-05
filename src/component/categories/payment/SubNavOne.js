@@ -37,6 +37,7 @@ export default function SubNavOne(props) {
                    setLoading={props.setLoading}
 
                    playerWinnings={props.playerWinnings}
+                   roundInfo={props.roundInfo}
                   />;
             case 'Vault':
                 return <VaultComponet

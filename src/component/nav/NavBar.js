@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { FaBars } from 'react-icons/fa';
 import ConnectWallet from '../utils/ConnectWallet';
 import TutorialModal from '../utils/TutorialModal';
+import PrevRound from '../utils/PrevRound';
 import {chainID} from '../chainUtils/constants';
 import { ethers } from 'ethers';
 import {shortenAddress} from '../chainUtils/trauncate';
@@ -13,6 +14,7 @@ export default function NavBar(props) {
 
      const navigate = useNavigate();
     const [modal, setModal] = useState(false);
+    const [modalRound, setModalRound] = useState(false);
     const [nav, setNav] = useState(false)
     const [modalWallet, setModalWallet] = useState(false);
     const [getInstance, setgetInstance] = useState();
@@ -208,6 +210,11 @@ export default function NavBar(props) {
                 <li><p className='text-[#6c757d] text-sm sm:hidden font-thin'>{props.signerAddress ? "Connected" : "You're not connected to SOS3D"}</p></li>
                 <li><a><button className='text-white sm:mb-4' style={{ textShadow: " 0 0 10px #0078f0, 0 0 10px #0034ca" }} onClick={wiki} >SOS3D Wiki</button></a></li>
                 <li><p className='text-[#6c757d] text-sm 2xl:hidden sm:block my-4 font-thin'>{props.signerAddress ? "Connected" : "You're not connected to SOS3D"}</p></li>
+                {
+                  props.signerAddress &&
+                   <li className='fixed right-[10%] top-[40%]'><button onClick={() => setModalRound(true)} className='p-2 text-white sm:mb-4 rounded-md text-sm hover:border hover:bg-transparent hover:border-[#f000f0] bg-fomopink'>Previous RoundInfo</button></li>
+                }
+                
 
                 <li><button onClick={() => setModalWallet(true)} className='border p-2 text-white text-sm rounded-md px-6 hover:bg-fomopink hover:text-black border-[#f000f0]'> { !props.signerAddress ? "Connect" : shortenAddress(props.signerAddress) } </button></li>
             </ul>
@@ -218,6 +225,14 @@ export default function NavBar(props) {
 
             {
                 modal && <TutorialModal setModal={setModal} />
+            }
+            {
+              modalRound && <PrevRound 
+              setModalRound={setModalRound}
+              prevWinner={props.prevWinner}
+              prevData={props.prevData}
+              amountWon={props.amountWon}                            
+              />
             }
             {
                 modalWallet && <ConnectWallet
